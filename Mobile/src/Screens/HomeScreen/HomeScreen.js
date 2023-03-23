@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import OpacityIcon from '@mui/icons-material/Opacity';
@@ -9,15 +10,17 @@ import OpacityIcon from '@mui/icons-material/Opacity';
 const HomeScreen= () => {
   return (
   <View
-    // gridColumn="span 4"
-    // gridRow="span 2"
+  display="flex" 
+  // justifyContent='center'
+  // alignItems= "center"
+  flexDirection="column"
     backgroundColor={"#fff"}
   >
     <View
       justifyContent= {'center'}
       backgroundColor={"#2A2A37"}
       width="100%"
-      height="20%"
+      height="25%"
     >
       <Text style={styles.baseText}>
         Your Home
@@ -39,9 +42,22 @@ const HomeScreen= () => {
       </TouchableOpacity>
       <TouchableOpacity style={[styles.room_container,styles.shadow_outline]}>
         
-          <MaterialCommunityIcons name="sofa-single-outline" color={"#00d1ff"} size={90} />
+          <MaterialIcons name="kitchen" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
-            Living Room
+            Kitchen
+          </Text>
+          <Text style={styles.number_devices}>
+            3x Devices
+          </Text>
+      </TouchableOpacity>
+      
+    </View>
+    <View style={styles.wrap}>
+      <TouchableOpacity style={[styles.room_container,styles.shadow_outline]}>
+        
+          <MaterialCommunityIcons name="bathtub-outline" color={"#00d1ff"} size={90} />
+          <Text style={styles.room_name}>
+            Bathroom
           </Text>
           <Text style={styles.number_devices}>
             3x Devices
@@ -49,24 +65,15 @@ const HomeScreen= () => {
       </TouchableOpacity>
       <TouchableOpacity style={[styles.room_container,styles.shadow_outline]}>
         
-          <MaterialCommunityIcons name="sofa-single-outline" color={"#00d1ff"} size={90} />
+          <MaterialCommunityIcons name="bed-double-outline" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
-            Living Room
+            Bedroom
           </Text>
           <Text style={styles.number_devices}>
             3x Devices
           </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.room_container,styles.shadow_outline]}>
-        
-          <MaterialCommunityIcons name="sofa-single-outline" color={"#00d1ff"} size={90} />
-          <Text style={styles.room_name}>
-            Living Room
-          </Text>
-          <Text style={styles.number_devices}>
-            3x Devices
-          </Text>
-      </TouchableOpacity>
+      
     </View>
   </View>
 
@@ -80,12 +87,14 @@ const styles = StyleSheet.create({
 
   },
   wrap:{
-    display:"flex",
-    justifyContent:"space-between",
+    // flex: 10,
+    display: 'flex',
+    gridTemplateColumns: '50px calc(100vh - 100px) 50px',
+    justifyContent:"space-around",
     flexDirection:"row",
     alignItems:"left",
     width:"100%",
-    height:"70%"
+    height:"25%"
   },
   room_container:{
     backgroundColor:"white",
