@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StatusBar,StyleSheet, View, Text, Image, TouchableOpacity,SafeAreaView } from 'react-native';
+import { StatusBar, StyleSheet, View, Text, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 // import HomeScreen from "./src/Screens/HomeScreen/HomeScreen";
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,17 +12,16 @@ export default App = () => {
   }
 
   return (
-      <View style={styles.container}>
-        <StatusBar backgroundColor={"#000000"} style="light"/>
-        <NavigationContainer>
-          <BottomBar />
-        </NavigationContainer>
-      </View>
+    <View style={styles.container}>
+      <StatusBar backgroundColor={"#2A2A37"} style="light" />
+      <NavigationContainer>
+        <BottomBar />
+      </NavigationContainer>
+    </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    
     flex: 1,
     backgroundColor: '#fff',
   },
