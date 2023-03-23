@@ -3,11 +3,11 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import ThermostatIcon from '@mui/icons-material/Thermostat';
-import OpacityIcon from '@mui/icons-material/Opacity';
-
 const HomeScreen= () => {
+  const [active,setActive]=useState(false);
+  const handlePress = () => {
+    setActive(!active);
+  };
   return (
   <View
   display="flex" 
@@ -30,9 +30,8 @@ const HomeScreen= () => {
       </Text>
     </View>
     <View style={styles.wrap}>
-      <TouchableOpacity style={[styles.room_container,styles.shadow_outline]}>
-        
-          <MaterialCommunityIcons name="sofa-single-outline" color={"#00d1ff"} size={90} />
+      <TouchableOpacity OnPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
+          <MaterialCommunityIcons name="sofa-single-outline" color={active ?"white":"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
             Living Room
           </Text>
@@ -40,7 +39,7 @@ const HomeScreen= () => {
             3x Devices
           </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.room_container,styles.shadow_outline]}>
+      <TouchableOpacity OnPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
         
           <MaterialIcons name="kitchen" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -53,7 +52,7 @@ const HomeScreen= () => {
       
     </View>
     <View style={styles.wrap}>
-      <TouchableOpacity style={[styles.room_container,styles.shadow_outline]}>
+      <TouchableOpacity OnPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
         
           <MaterialCommunityIcons name="bathtub-outline" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -63,7 +62,7 @@ const HomeScreen= () => {
             3x Devices
           </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.room_container,styles.shadow_outline]}>
+      <TouchableOpacity OnPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
         
           <MaterialCommunityIcons name="bed-double-outline" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -89,7 +88,6 @@ const styles = StyleSheet.create({
   wrap:{
     // flex: 10,
     display: 'flex',
-    gridTemplateColumns: '50px calc(100vh - 100px) 50px',
     justifyContent:"space-around",
     flexDirection:"row",
     alignItems:"left",
@@ -97,7 +95,7 @@ const styles = StyleSheet.create({
     height:"25%"
   },
   room_container:{
-    backgroundColor:"white",
+    backgroundColor:HomeScreen.active ?"#00D1FF":"white",
     display:"flex", 
     justifyContent:'center',
     alignItems: "center",
@@ -115,6 +113,7 @@ const styles = StyleSheet.create({
       height: 3,
       width: 3
     },
+    evelation:3
   },
 
   baseText: {
