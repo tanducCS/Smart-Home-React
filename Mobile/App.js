@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StatusBar,StyleSheet, View, Text, Image, TouchableOpacity,SafeAreaView } from 'react-native';
 // import HomeScreen from "./src/Screens/HomeScreen/HomeScreen";
+
 import { NavigationContainer } from '@react-navigation/native';
-import BottomBar from "./src/components/UI/BottomBar"
-import { StatusBar } from 'expo-status-bar';
+import BottomBar from "./src/navigation/BottomBar/BottomBar"
+
 export default App = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const handleNext = () => {
@@ -11,11 +12,12 @@ export default App = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <StatusBar/>
-      <Text>AAAAAAAAAAAAAAAAAAAAA</Text>
-      <BottomBar />
-    </View>
+      <View style={styles.container}>
+        <StatusBar backgroundColor={"#000000"} style="light"/>
+        <NavigationContainer>
+          <BottomBar />
+        </NavigationContainer>
+      </View>
   );
 }
 const styles = StyleSheet.create({

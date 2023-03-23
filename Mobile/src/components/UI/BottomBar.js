@@ -2,10 +2,6 @@ import React, { useState } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeIcon from '@mui/icons-material/Home';
-import EqualizerIcon from '@mui/icons-material/Equalizer';
-import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
-import SettingsIcon from '@mui/icons-material/Settings';
 
 import HomeScreen from "../../Screens/HomeScreen/HomeScreen";
 import RoutineScreen from "../../Screens/RoutineScreen/RoutineScreen";
@@ -15,7 +11,6 @@ const Tab = createMaterialBottomTabNavigator();
 
 const BottomBar= () => {
   return (
-    <NavigationContainer>
     <Tab.Navigator
       initialRouteName="Feed"
       activeColor="#00D1FF"
@@ -52,7 +47,7 @@ const BottomBar= () => {
             ),
         }} />
     </Tab.Navigator>
-    </NavigationContainer>
+    
   );
 }
 export default BottomBar;
