@@ -21,7 +21,7 @@ const BottomBar = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons name="home" color={color} size={29} />
           ),
         }}
       />
@@ -29,7 +29,7 @@ const BottomBar = () => {
         options={{
           tabBarLabel: 'Static',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="equalizer" color={color} size={26} />
+            <MaterialCommunityIcons name="equalizer" color={color} size={29} />
           ),
         }}
       />
@@ -37,17 +37,16 @@ const BottomBar = () => {
         options={{
           tabBarLabel: 'Routines',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="timer-settings" color={color} size={26} />
+            <MaterialCommunityIcons name="timer-settings" color={color} size={29} />
           ),
         }} />
       <Tab.Screen name="Setting" component={SettingScreen}
         options={{
           tabBarLabel: 'Setting',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account-settings" color={color} size={26} />
+            <MaterialCommunityIcons name="account-settings" color={color} size={29} />
           ),
         }} />
-      <Tab.Screen name="LightList" component={LightList} />
     </Tab.Navigator>
   );
 }
