@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, Image, TouchableOpacity,TouchableHighlight} from 'react-native';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 const HomeScreen= () => {
   const [active,setActive]=useState(false);
   const handlePress = () => {
@@ -30,16 +31,17 @@ const HomeScreen= () => {
       </Text>
     </View>
     <View style={styles.wrap}>
-      <TouchableOpacity OnPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
-          <MaterialCommunityIcons name="sofa-single-outline" color={active ?"white":"#00d1ff"} size={90} />
-          <Text style={styles.room_name}>
-            Living Room
-          </Text>
-          <Text style={styles.number_devices}>
-            3x Devices
-          </Text>
+      <TouchableOpacity onPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
+        <MaterialCommunityIcons name="sofa-single-outline" color={active ? "white" : "#00d1ff"} size={90} />
+        <Text style={styles.room_name}>
+          Living Room
+        </Text>
+        <Text style={styles.number_devices}>
+          3x Devices
+        </Text>
       </TouchableOpacity>
-      <TouchableOpacity OnPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
+
+      <TouchableOpacity onPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
         
           <MaterialIcons name="kitchen" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -52,7 +54,7 @@ const HomeScreen= () => {
       
     </View>
     <View style={styles.wrap}>
-      <TouchableOpacity OnPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
+      <TouchableOpacity onPress={handlePress} style={[{backgroundColor:active ?"#00D1FF":"white"},styles.room_container,styles.shadow_outline]}>
         
           <MaterialCommunityIcons name="bathtub-outline" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -62,7 +64,7 @@ const HomeScreen= () => {
             3x Devices
           </Text>
       </TouchableOpacity>
-      <TouchableOpacity OnPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
+      <TouchableOpacity onPress={handlePress} style={[styles.room_container,styles.shadow_outline]}>
         
           <MaterialCommunityIcons name="bed-double-outline" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -72,6 +74,9 @@ const HomeScreen= () => {
             3x Devices
           </Text>
       </TouchableOpacity>
+      
+    </View>
+    <View>
       
     </View>
   </View>
