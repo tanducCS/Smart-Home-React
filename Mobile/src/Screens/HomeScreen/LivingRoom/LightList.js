@@ -4,25 +4,37 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Switch } from 'react-n
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import HomeScreen from "../HomeScreen";
 
 
+const LightListLivingroom = ({ navigation }) => {
+    const onHome = () => (
+        navigation.navigate("Home")
+    );
 
-const LightList = () => {
+    const onLightListLivingroom = () => (
+        navigation.navigate("LightListLivingroom")
+    );
+
+    const onFanListLivingroom = () => (
+        navigation.navigate("FanListLivingroom")
+    );
+
     const [isEnabled0, setIsEnabled0] = useState(false);
     const [isEnabled1, setIsEnabled1] = useState(false);
     return (
         <View flexDirection="column">
             <View style={styles.room}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onHome}>
                     <Entypo name="chevron-left" color={"white"} size={28} />
                 </TouchableOpacity>
-                <Text style={styles.baseText}>Kitchen</Text>
+                <Text style={styles.baseText}>Living Room</Text>
             </View>
             <View style={[styles.status, styles.icon]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onLightListLivingroom}>
                     <MaterialCommunityIcons name="lightbulb-on-outline" color={"#00d1ff"} size={50} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onFanListLivingroom}>
                     <MaterialCommunityIcons name="fan" color={"#bcbcbc"} size={50} />
                 </TouchableOpacity>
                 <TouchableOpacity>
@@ -97,4 +109,4 @@ const styles = StyleSheet.create({
     }
 
 });
-export default LightList;
+export default LightListLivingroom;

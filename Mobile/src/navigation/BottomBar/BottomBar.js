@@ -1,13 +1,53 @@
 import React, { useState } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+  TransitionPresets,
+} from '@react-navigation/stack';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from "../../Screens/HomeScreen/HomeScreen";
 import RoutineScreen from "../../Screens/RoutineScreen/RoutineScreen";
 import SettingScreen from "../../Screens/SettingScreen/SettingScreen";
 import StaticScreen from "../../Screens/StaticScreen/StaticScreen";
-import LightList from '../../Screens/HomeScreen/LightList';
+
+
+//livingroom
+import LightListLivingroom from '../../Screens/HomeScreen/LivingRoom/LightList';
+import FanListLivingroom from '../../Screens/HomeScreen/LivingRoom/FanList';
+
+
+
+//Livingroom
+const LivingroomStack = createStackNavigator();
+
+export const LivingroomStackScreen = () => (
+  <LivingroomStack.Navigator screenOptions={{ headerShown: false }}>
+    <LivingroomStack.Screen name="LightListLivingroom" component={LightListLivingroom} />
+    <LivingroomStack.Screen name="FanListLivingroom" component={FanListLivingroom} />
+  </LivingroomStack.Navigator>
+);
+
+
+
+//Homescreen
+const HomeStack = createStackNavigator();
+
+export const HomeStackScreen = () => (
+  <HomeStack.Navigator
+    screenOptions={{
+      headerShown: false,
+      cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+    }}
+  >
+    <HomeStack.Screen name="Home" component={HomeScreen} />
+    <HomeStack.Screen name="Livingroom" component={LivingroomStackScreen} />
+  </HomeStack.Navigator>
+);
+
+
+//Tab
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomBar = () => {
@@ -17,7 +57,7 @@ const BottomBar = () => {
       activeColor="#00D1FF"
       barStyle={{ backgroundColor: 'white' }}
     >
-      <Tab.Screen name="Home" component={HomeScreen}
+      <Tab.Screen name="HomeTab" component={HomeStackScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (

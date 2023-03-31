@@ -3,7 +3,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { NavigationContainer } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import LightList from "../../Screens/HomeScreen/LightList";
+import LightList from "../../Screens/HomeScreen/LivingRoom/LightList";
 import RoutineScreen from "../../Screens/RoutineScreen/RoutineScreen";
 import SettingScreen from "../../Screens/SettingScreen/SettingScreen";
 import StaticScreen from "../../Screens/StaticScreen/StaticScreen";

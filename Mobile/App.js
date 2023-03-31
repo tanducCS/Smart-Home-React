@@ -12,7 +12,7 @@ export default App = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#00d1ff" style="light" />
+      <StatusBar backgroundColor="#2A2A37" style="light" />
       <NavigationContainer>
         <BottomBar />
       </NavigationContainer>
