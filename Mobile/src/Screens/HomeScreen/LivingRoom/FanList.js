@@ -19,6 +19,11 @@ const FanListLivingroom = ({ navigation }) => {
     const onFanListLivingroom = () => (
         navigation.navigate("FanListLivingroom")
     );
+
+    const onACListLivingroom = () => (
+        navigation.navigate("ACListLivingroom")
+    );
+
     const [isEnabled0, setIsEnabled0] = useState(false);
     const [isEnabled1, setIsEnabled1] = useState(false);
     return (
@@ -27,16 +32,16 @@ const FanListLivingroom = ({ navigation }) => {
                 <TouchableOpacity onPress={onHome}>
                     <Entypo name="chevron-left" color={"white"} size={28} />
                 </TouchableOpacity>
-                <Text style={styles.baseText}>Kitchen</Text>
+                <Text style={styles.baseText}>Living Room</Text>
             </View>
             <View style={[styles.status, styles.icon]}>
                 <TouchableOpacity onPress={onLightListLivingroom}>
-                    <MaterialCommunityIcons name="lightbulb-on-outline" color={"#00d1ff"} size={50} />
+                    <MaterialCommunityIcons name="lightbulb-on-outline" color={"#bcbcbc"} size={50} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onFanListLivingroom}>
-                    <MaterialCommunityIcons name="fan" color={"#bcbcbc"} size={50} />
+                    <MaterialCommunityIcons name="fan" color={"#00d1ff"} size={50} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onACListLivingroom}>
                     <MaterialCommunityIcons name="air-conditioner" color={"#bcbcbc"} size={50} />
                 </TouchableOpacity>
             </View>

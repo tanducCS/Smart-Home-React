@@ -4,24 +4,24 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Switch } from 'react-n
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeScreen from "../HomeScreen";
 
 
-const LightListLivingroom = ({ navigation }) => {
+
+const FanListKitchen = ({ navigation }) => {
     const onHome = () => (
         navigation.navigate("Home")
     );
 
-    const onLightListLivingroom = () => (
-        navigation.navigate("LightListLivingroom")
+    const onLightListKitchen = () => (
+        navigation.navigate("LightListKitchen")
     );
 
-    const onFanListLivingroom = () => (
-        navigation.navigate("FanListLivingroom")
+    const onFanListKitchen = () => (
+        navigation.navigate("FanListKitchen")
     );
 
-    const onACListLivingroom = () => (
-        navigation.navigate("ACListLivingroom")
+    const onACListKitchen = () => (
+        navigation.navigate("ACListKitchen")
     );
 
     const [isEnabled0, setIsEnabled0] = useState(false);
@@ -32,16 +32,16 @@ const LightListLivingroom = ({ navigation }) => {
                 <TouchableOpacity onPress={onHome}>
                     <Entypo name="chevron-left" color={"white"} size={28} />
                 </TouchableOpacity>
-                <Text style={styles.baseText}>Living Room</Text>
+                <Text style={styles.baseText}>Kitchen</Text>
             </View>
             <View style={[styles.status, styles.icon]}>
-                <TouchableOpacity onPress={onLightListLivingroom}>
-                    <MaterialCommunityIcons name="lightbulb-on-outline" color={"#00d1ff"} size={50} />
+                <TouchableOpacity onPress={onLightListKitchen}>
+                    <MaterialCommunityIcons name="lightbulb-on-outline" color={"#bcbcbc"} size={50} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={onFanListLivingroom}>
-                    <MaterialCommunityIcons name="fan" color={"#bcbcbc"} size={50} />
+                <TouchableOpacity onPress={onFanListKitchen}>
+                    <MaterialCommunityIcons name="fan" color={"#00d1ff"} size={50} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={onACListLivingroom}>
+                <TouchableOpacity onPress={onACListKitchen}>
                     <MaterialCommunityIcons name="air-conditioner" color={"#bcbcbc"} size={50} />
                 </TouchableOpacity>
             </View>
@@ -113,4 +113,4 @@ const styles = StyleSheet.create({
     }
 
 });
-export default LightListLivingroom;
+export default FanListKitchen;

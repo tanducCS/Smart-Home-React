@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -15,13 +15,18 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate("Livingroom")
   );
   return (
-    <View>
+    <View
+      display="flex"
+      // justifyContent='center'
+      // alignItems= "center"
+      flexDirection="column"
+      backgroundColor={"#fff"}
+    >
       <View
-        display="flex"
-        // justifyContent='center'
-        // alignItems= "center"
-        flexDirection="column"
+        justifyContent={'center'}
         backgroundColor={"#2A2A37"}
+        width="100%"
+        height="25%"
       >
         <Text style={styles.baseText}>
           Your Home
@@ -40,7 +45,8 @@ const HomeScreen = ({ navigation }) => {
             3x Devices
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity OnPress={handlePress} style={[styles.room_container, styles.shadow_outline]}>
+
+        <TouchableOpacity onPress={handlePress} style={[styles.room_container, styles.shadow_outline]}>
 
           <MaterialIcons name="kitchen" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -53,7 +59,7 @@ const HomeScreen = ({ navigation }) => {
 
       </View>
       <View style={styles.wrap}>
-        <TouchableOpacity OnPress={handlePress} style={[styles.room_container, styles.shadow_outline]}>
+        <TouchableOpacity onPress={handlePress} style={[{ backgroundColor: active ? "#00D1FF" : "white" }, styles.room_container, styles.shadow_outline]}>
 
           <MaterialCommunityIcons name="bathtub-outline" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -63,7 +69,7 @@ const HomeScreen = ({ navigation }) => {
             3x Devices
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity OnPress={handlePress} style={[styles.room_container, styles.shadow_outline]}>
+        <TouchableOpacity onPress={handlePress} style={[styles.room_container, styles.shadow_outline]}>
 
           <MaterialCommunityIcons name="bed-double-outline" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>

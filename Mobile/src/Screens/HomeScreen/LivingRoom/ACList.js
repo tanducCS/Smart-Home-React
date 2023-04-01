@@ -4,10 +4,10 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Switch } from 'react-n
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeScreen from "../HomeScreen";
 
 
-const LightListLivingroom = ({ navigation }) => {
+
+const ACListLivingroom = ({ navigation }) => {
     const onHome = () => (
         navigation.navigate("Home")
     );
@@ -36,13 +36,13 @@ const LightListLivingroom = ({ navigation }) => {
             </View>
             <View style={[styles.status, styles.icon]}>
                 <TouchableOpacity onPress={onLightListLivingroom}>
-                    <MaterialCommunityIcons name="lightbulb-on-outline" color={"#00d1ff"} size={50} />
+                    <MaterialCommunityIcons name="lightbulb-on-outline" color={"#bcbcbc"} size={50} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onFanListLivingroom}>
                     <MaterialCommunityIcons name="fan" color={"#bcbcbc"} size={50} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onACListLivingroom}>
-                    <MaterialCommunityIcons name="air-conditioner" color={"#bcbcbc"} size={50} />
+                    <MaterialCommunityIcons name="air-conditioner" color={"#00d1ff"} size={50} />
                 </TouchableOpacity>
             </View>
             <View style={styles.list}>
@@ -113,4 +113,4 @@ const styles = StyleSheet.create({
     }
 
 });
-export default LightListLivingroom;
+export default ACListLivingroom;
