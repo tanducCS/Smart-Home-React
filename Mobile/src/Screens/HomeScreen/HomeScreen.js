@@ -1,30 +1,70 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
 
+import Paho from 'paho-mqtt';
+var client = new Paho.Client(
+  'wss://io.adafruit.com/mqtt/', 'kieuquan'
+);
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import LightListLivingroom from './LivingRoom/LightList';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+const HomeScreen = () => {
 
 
-const HomeScreen = ({ navigation }) => {
-  const [active, setActive] = useState(false);
+  const AIO_USERNAME = 'nguyenha25012002';
+  const AIO_KEY = 'aio_FNPN6952PlpfhaiIn0srXFTrZaPk';
+  const FEED_KEY = 'temperature';
+  const [temp, setTemp] = useState('dataDefault');
+  useEffect(() => {
+    client.connect({
+      onSuccess: function () {
+        client.subscribe({ AIO_USERNAME } / feeds / { FEED_KEY });
+        client.onMessageArrived = onMessage;
+        mess = String(client.onMessageArrived);
+        setTemp(mess);
+      },
+      onFailure: (responseObject) => {
+        setTemp('failed');
+      },
+      useSSL: true,
+      userName: AIO_USERNAME,
+      password: AIO_KEY,
+      // port:8883,
+    });
+  }, [])
+
   const handlePress = () => {
-    setActive(!active);
   };
-  const onLightListLivingroom = () => (
-    navigation.navigate("Livingroom")
-  );
+  const [currentDate, setCurrentDate] = useState('');
+  const [currentTime, setCurrentTime] = useState('');
+  useEffect(() => {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    setCurrentDate(
+      date + '/' + month + '/' + year
+    );
+  }, []);
+  useEffect(() => {
+    var hours = String(new Date().getHours()); //Current Hours
+    var min = String(new Date().getMinutes()); //Current Minutes
+    setCurrentTime(
+      hours + ':' + min
+    );
+  }, []);
   return (
     <View
       display="flex"
       // justifyContent='center'
-      // alignItems= "center"
+      alignItems="center"
       flexDirection="column"
       backgroundColor={"#fff"}
     >
       <View
         justifyContent={'center'}
-        backgroundColor={"#2A2A37"}
+        backgroundColor={"#000000"}
         width="100%"
         height="25%"
       >
@@ -36,8 +76,8 @@ const HomeScreen = ({ navigation }) => {
         </Text>
       </View>
       <View style={styles.wrap}>
-        <TouchableOpacity onPress={onLightListLivingroom} style={[styles.room_container, styles.shadow_outline]}>
-          <MaterialCommunityIcons name="sofa-single-outline" color={active ? "white" : "#00d1ff"} size={90} />
+        <TouchableOpacity onPress={handlePress} style={[styles.room_container, styles.shadow_outline]}>
+          <MaterialCommunityIcons name="sofa-single-outline" color="#00d1ff" size={90} />
           <Text style={styles.room_name}>
             Living Room
           </Text>
@@ -59,7 +99,7 @@ const HomeScreen = ({ navigation }) => {
 
       </View>
       <View style={styles.wrap}>
-        <TouchableOpacity onPress={handlePress} style={[{ backgroundColor: active ? "#00D1FF" : "white" }, styles.room_container, styles.shadow_outline]}>
+        <TouchableOpacity onPress={handlePress} style={[{ backgroundColor: "white" }, styles.room_container, styles.shadow_outline]}>
 
           <MaterialCommunityIcons name="bathtub-outline" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -79,8 +119,30 @@ const HomeScreen = ({ navigation }) => {
             3x Devices
           </Text>
         </TouchableOpacity>
+
+      </View>
+      <View style={styles.overview}>
+        <Text style={styles.baseText}>Overview</Text>
+        <View style={styles.overviewContent}>
+          <View style={styles.overviewItemLeft} >
+            <MaterialIcons name="wb-sunny" color={"white"} size={30} />
+            <Text style={styles.timeText}> {currentTime}</Text>
+            <Text style={styles.dateText}> {currentDate}</Text>
+          </View>
+          <View style={styles.overviewItemRight} >
+            <View display="flex" flexDirection="row" >
+              <FontAwesome5 name="temperature-low" paddingLeft="7%" color={"white"} size={40} />
+              <Text style={styles.dataText}>{temp} </Text>
+            </View>
+            <View display="flex" flexDirection="row" >
+              <Ionicons name="water-outline" paddingTop="20%" color={"white"} size={40} fontWeight='bold' />
+              <Text style={styles.dataText} paddingTop="20%" >{temp} </Text>
+            </View>
+          </View>
+        </View>
       </View>
     </View>
+
   );
 }
 const styles = StyleSheet.create({
@@ -91,11 +153,11 @@ const styles = StyleSheet.create({
 
   },
   wrap: {
-    // flex: 1,
+    // flex: 10,
     display: 'flex',
     justifyContent: "space-around",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "left",
     width: "100%",
     height: "25%"
   },
@@ -118,7 +180,7 @@ const styles = StyleSheet.create({
       height: 3,
       width: 3
     },
-    evelation: 10
+    evelation: 3
   },
 
   baseText: {
@@ -129,6 +191,22 @@ const styles = StyleSheet.create({
   },
   innerText: {
     color: 'red',
+  },
+  timeText: {
+    // paddingRight:"5%",
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 60
+  },
+  dateText: {
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 10
+  },
+  dataText: {
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 15
   },
   address: {
     color: 'grey',
@@ -143,6 +221,36 @@ const styles = StyleSheet.create({
   number_devices: {
     color: 'grey',
     fontSize: 10,
+  },
+
+  overview: {
+    backgroundColor: "#000000",
+    display: "flex",
+    flexDirection: "column",
+    height: "25%",
+    width: "90%",
+    borderRadius: 20
+  },
+  overviewContent: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  overviewItemLeft: {
+    paddingLeft: "5%",
+    display: "flex",
+    alignItems: "left",
+    flexDirection: "column",
+    height: "90%",
+    width: "60%"
+  },
+  overviewItemRight: {
+    paddingLeft: "5%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "left",
+    height: "90%",
+    width: "30%"
   }
 });
 export default HomeScreen;
