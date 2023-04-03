@@ -59,6 +59,7 @@ export const HomeStackScreen = () => (
   >
     <HomeStack.Screen name="Home" component={HomeScreen} />
     <HomeStack.Screen name="Livingroom" component={LivingroomStackScreen} />
+    <HomeStack.Screen name="Kitchen" component={KitchenStackScreen} />
   </HomeStack.Navigator>
 );
 

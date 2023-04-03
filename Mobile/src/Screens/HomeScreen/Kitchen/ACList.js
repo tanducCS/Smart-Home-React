@@ -7,21 +7,21 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 
-const ACKitchen = ({ navigation }) => {
+const ACListKitchen = ({ navigation }) => {
     const onHome = () => (
         navigation.navigate("Home")
     );
 
     const onLightKitchen = () => (
-        navigation.navigate("LightKitchen")
+        navigation.navigate("LightListKitchen")
     );
 
     const onFanKitchen = () => (
-        navigation.navigate("FanKitchen")
+        navigation.navigate("FanListKitchen")
     );
 
     const onACKitchen = () => (
-        navigation.navigate("ACKitchen")
+        navigation.navigate("ACListKitchen")
     );
 
     const [isEnabled0, setIsEnabled0] = useState(false);
@@ -113,4 +113,4 @@ const styles = StyleSheet.create({
     }
 
 });
-export default ACKitchen;
+export default ACListKitchen;

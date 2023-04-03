@@ -10,7 +10,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
 
 
   const AIO_USERNAME = 'nguyenha25012002';
@@ -36,6 +36,12 @@ const HomeScreen = () => {
   }, [])
 
   const handlePress = () => {
+  };
+  const onLivingRoom = () => {
+    navigation.navigate("Livingroom")
+  };
+  const onKitchen = () => {
+    navigation.navigate("Kitchen")
   };
   const [currentDate, setCurrentDate] = useState('');
   const [currentTime, setCurrentTime] = useState('');
@@ -76,7 +82,7 @@ const HomeScreen = () => {
         </Text>
       </View>
       <View style={styles.wrap}>
-        <TouchableOpacity onPress={handlePress} style={[styles.room_container, styles.shadow_outline]}>
+        <TouchableOpacity onPress={onLivingRoom} style={[styles.room_container, styles.shadow_outline]}>
           <MaterialCommunityIcons name="sofa-single-outline" color="#00d1ff" size={90} />
           <Text style={styles.room_name}>
             Living Room
@@ -86,7 +92,7 @@ const HomeScreen = () => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handlePress} style={[styles.room_container, styles.shadow_outline]}>
+        <TouchableOpacity onPress={onKitchen} style={[styles.room_container, styles.shadow_outline]}>
 
           <MaterialIcons name="kitchen" color={"#00d1ff"} size={90} />
           <Text style={styles.room_name}>
@@ -157,7 +163,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: "space-around",
     flexDirection: "row",
-    alignItems: "left",
+    alignItems: "center",
     width: "100%",
     height: "25%"
   },
@@ -239,7 +245,7 @@ const styles = StyleSheet.create({
   overviewItemLeft: {
     paddingLeft: "5%",
     display: "flex",
-    alignItems: "left",
+    alignItems: "center",
     flexDirection: "column",
     height: "90%",
     width: "60%"
@@ -248,7 +254,7 @@ const styles = StyleSheet.create({
     paddingLeft: "5%",
     display: "flex",
     flexDirection: "column",
-    alignItems: "left",
+    alignItems: "center",
     height: "90%",
     width: "30%"
   }
