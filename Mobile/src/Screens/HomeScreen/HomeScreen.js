@@ -2,38 +2,43 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
 
 import Paho from 'paho-mqtt';
-var client = new Paho.Client(
-  'wss://io.adafruit.com/mqtt/', 'kieuquan'
-);
-
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const HomeScreen = ({ navigation }) => {
-
-
+  var client = new Paho.Client(
+    'io.adafruit.com',
+    Number(8883),
+    'kkkk'
+  );
+  client.onMessageArrived = function(message) {
+  };
+  
   const AIO_USERNAME = 'nguyenha25012002';
-  const AIO_KEY = 'aio_FNPN6952PlpfhaiIn0srXFTrZaPk';
+  const AIO_KEY = 'aio_XxPs137wiW254ueUJcTGfUFKxKdl';
   const FEED_KEY = 'temperature';
   const [temp, setTemp] = useState('dataDefault');
-  useEffect(() => {
-    client.connect({
-      onSuccess: function () {
-        client.subscribe({ AIO_USERNAME } / feeds / { FEED_KEY });
-        client.onMessageArrived = onMessage;
-        mess = String(client.onMessageArrived);
-        setTemp(mess);
-      },
-      onFailure: (responseObject) => {
-        setTemp('failed');
-      },
-      useSSL: true,
+  // useEffect(() => {
+    client.connect(
+      {
       userName: AIO_USERNAME,
       password: AIO_KEY,
-      // port:8883,
+      useSSL: true,
+      keepAliveInterval:900,
+      reconnect: true,
+      
+      onSuccess: function () {
+        console.log('connect');
+        client.subscribe(`${AIO_USERNAME}/feeds/${FEED_KEY}`);
+        client.onMessageArrived = onMessage;
+      },
+      onFailure: (responseObject) => {
+        console.log('aaaaaaaa');
+      },
+      
     });
-  }, [])
+  // }, [])
 
   const handlePress = () => {
   };

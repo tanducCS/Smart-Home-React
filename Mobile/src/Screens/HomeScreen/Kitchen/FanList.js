@@ -4,6 +4,8 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Switch } from 'react-n
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Slider, Button } from '@rneui/themed';
+
 
 
 
@@ -18,10 +20,6 @@ const FanListKitchen = ({ navigation }) => {
 
     const onFanListKitchen = () => (
         navigation.navigate("FanListKitchen")
-    );
-
-    const onACListKitchen = () => (
-        navigation.navigate("ACListKitchen")
     );
 
     const [isEnabled0, setIsEnabled0] = useState(false);
@@ -41,13 +39,11 @@ const FanListKitchen = ({ navigation }) => {
                 <TouchableOpacity onPress={onFanListKitchen}>
                     <MaterialCommunityIcons name="fan" color={"#00d1ff"} size={50} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={onACListKitchen}>
-                    <MaterialCommunityIcons name="air-conditioner" color={"#bcbcbc"} size={50} />
-                </TouchableOpacity>
+
             </View>
             <View style={styles.list}>
                 <View flexDirection="row">
-                    <Text style={styles.listText}>Light</Text>
+                    <Text style={styles.listText}>Fan 1</Text>
                     <Switch
                         trackColor={{ false: '#767577', true: '#81b0ff' }}
                         thumbColor={isEnabled0 ? '#f5dd4b' : '#f4f3f4'}
@@ -56,8 +52,32 @@ const FanListKitchen = ({ navigation }) => {
                         paddingLeft="60%"
                     />
                 </View>
+                <Slider
+                    value={0}
+                    minimumValue={0}
+                    maximumValue={100}
+                    step={1}
+                    minimumTrackTintColor="#00d1ff"
+                    maximumTrackTintColor="#bcbcbc"
+                    thumbTintColor="#00d1ff"
+                    thumbStyle={{ width: 20, height: 20, borderRadius: 20 }}
+                    trackStyle={{ height: 10, borderRadius: 10 }}
+                    style={{ width: "90%", height: 50 }}
+                />
+                <Button
+                    title="Setting"
+                    buttonStyle={{
+                        backgroundColor: '#00D1FF',
+                        borderRadius: 3,
+                    }}
+                    containerStyle={{
+                        width: 200,
+                        marginHorizontal: 90,
+                        marginVertical: 10,
+                    }}
+                />
                 <View flexDirection="row">
-                    <Text style={styles.listText}>Light</Text>
+                    <Text style={styles.listText}>Fan 2</Text>
                     <Switch
                         trackColor={{ false: '#767577', true: '#81b0ff' }}
                         thumbColor={isEnabled1 ? '#f5dd4b' : '#f4f3f4'}
@@ -66,7 +86,30 @@ const FanListKitchen = ({ navigation }) => {
                         paddingLeft="60%"
                     />
                 </View>
-
+                <Slider
+                    value={0}
+                    minimumValue={0}
+                    maximumValue={100}
+                    step={1}
+                    minimumTrackTintColor="#00d1ff"
+                    maximumTrackTintColor="#bcbcbc"
+                    thumbTintColor="#00d1ff"
+                    thumbStyle={{ width: 20, height: 20, borderRadius: 20 }}
+                    trackStyle={{ height: 10, borderRadius: 10 }}
+                    style={{ width: "90%", height: 50 }}
+                />
+                <Button
+                    title="Setting"
+                    buttonStyle={{
+                        backgroundColor: '#00D1FF',
+                        borderRadius: 3,
+                    }}
+                    containerStyle={{
+                        width: 200,
+                        marginHorizontal: 90,
+                        marginVertical: 10,
+                    }}
+                />
             </View>
         </View>
     );

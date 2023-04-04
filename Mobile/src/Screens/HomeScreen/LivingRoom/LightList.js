@@ -41,9 +41,6 @@ const LightListLivingroom = ({ navigation }) => {
                 <TouchableOpacity onPress={onFanListLivingroom}>
                     <MaterialCommunityIcons name="fan" color={"#bcbcbc"} size={50} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={onACListLivingroom}>
-                    <MaterialCommunityIcons name="air-conditioner" color={"#bcbcbc"} size={50} />
-                </TouchableOpacity>
             </View>
             <View style={styles.list}>
                 <View flexDirection="row">

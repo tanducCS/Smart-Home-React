@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Switch } from 'react-n
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Slider } from '@rneui/themed';
+import { Slider, Button } from '@rneui/themed';
 
 const FanListLivingroom = ({ navigation }) => {
     const onHome = () => (
@@ -18,11 +18,6 @@ const FanListLivingroom = ({ navigation }) => {
     const onFanListLivingroom = () => (
         navigation.navigate("FanListLivingroom")
     );
-
-    const onACListLivingroom = () => (
-        navigation.navigate("ACListLivingroom")
-    );
-
     const [isEnabled0, setIsEnabled0] = useState(false);
     const [isEnabled1, setIsEnabled1] = useState(false);
     return (
@@ -39,9 +34,6 @@ const FanListLivingroom = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={onFanListLivingroom}>
                     <MaterialCommunityIcons name="fan" color={"#00d1ff"} size={50} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onACListLivingroom}>
-                    <MaterialCommunityIcons name="air-conditioner" color={"#bcbcbc"} size={50} />
                 </TouchableOpacity>
             </View>
             <View style={styles.list}>
@@ -67,6 +59,18 @@ const FanListLivingroom = ({ navigation }) => {
                     trackStyle={{ height: 10, borderRadius: 10 }}
                     style={{ width: "90%", height: 50 }}
                 />
+                <Button
+                    title="Setting"
+                    buttonStyle={{
+                        backgroundColor: '#00D1FF',
+                        borderRadius: 3,
+                    }}
+                    containerStyle={{
+                        width: 200,
+                        marginHorizontal: 90,
+                        marginVertical: 10,
+                    }}
+                />
                 <View flexDirection="row">
                     <Text style={styles.listText}>Fan 2</Text>
                     <Switch
@@ -88,6 +92,18 @@ const FanListLivingroom = ({ navigation }) => {
                     thumbStyle={{ width: 20, height: 20, borderRadius: 20 }}
                     trackStyle={{ height: 10, borderRadius: 10 }}
                     style={{ width: "90%", height: 50 }}
+                />
+                <Button
+                    title="Setting"
+                    buttonStyle={{
+                        backgroundColor: '#00D1FF',
+                        borderRadius: 3,
+                    }}
+                    containerStyle={{
+                        width: 200,
+                        marginHorizontal: 90,
+                        marginVertical: 10,
+                    }}
                 />
             </View>
         </View>
