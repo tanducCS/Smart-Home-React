@@ -22,7 +22,7 @@ function App() {
   let feed =  'nguyenha25012002/feeds/temperature';
 let client = connect('mqtt://io.adafruit.com',{
 username: "nguyenha25012002",
-password: "aio_XxPs137wiW254ueUJcTGfUFKxKdl",
+password: "",
 });
 
 client.on('connect', () => {
