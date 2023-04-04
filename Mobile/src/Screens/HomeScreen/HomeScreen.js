@@ -16,7 +16,7 @@ const HomeScreen = ({ navigation }) => {
   };
   
   const AIO_USERNAME = 'nguyenha25012002';
-  const AIO_KEY = 'aio_XxPs137wiW254ueUJcTGfUFKxKdl';
+  const AIO_KEY = '';
   const FEED_KEY = 'temperature';
   const [temp, setTemp] = useState('dataDefault');
   // useEffect(() => {
