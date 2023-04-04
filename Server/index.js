@@ -1,7 +1,7 @@
 import { connect } from 'mqtt';
 const client = connect('mqtt://io.adafruit.com', {
   username: 'nguyenha25012002',
-  password: 'aio_XxPs137wiW254ueUJcTGfUFKxKdl',
+  password: '',
 });
 feed="nguyenha25012002/feeds/temperature"
 client.on('connect', () => {
