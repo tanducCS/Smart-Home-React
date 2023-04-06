@@ -11,6 +11,7 @@ import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
+import StatBox1 from "../../components/StatBox1";
 import ProgressCircle from "../../components/ProgressCircle";
 import Navbar from "../../components/Navbar";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
@@ -131,7 +132,7 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <StatBox
+          <StatBox1
             title="Fan"
             subtitle="Active for 3 hours"
             progress="50"
