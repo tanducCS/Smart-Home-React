@@ -1,44 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
 
+import init from 'react_native_mqtt';
 import Paho from 'paho-mqtt';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+init({
+  size: 10000,
+  storageBackend: AsyncStorage,
+  defaultExpires: 1000 * 3600 * 24,
+  enableCache: true,
+  reconnect: false,
+  sync: {}
+});
+
 const HomeScreen = ({ navigation }) => {
-  var client = new Paho.Client(
-    'io.adafruit.com',
-    Number(8883),
-    'kkkk'
-  );
-  client.onMessageArrived = function(message) {
-  };
   
-  const AIO_USERNAME = 'nguyenha25012002';
-  const AIO_KEY = '';
-  const FEED_KEY = 'temperature';
   const [temp, setTemp] = useState('dataDefault');
   // useEffect(() => {
-    client.connect(
-      {
-      userName: AIO_USERNAME,
-      password: AIO_KEY,
-      useSSL: true,
-      keepAliveInterval:900,
-      reconnect: true,
-      
-      onSuccess: function () {
-        console.log('connect');
-        client.subscribe(`${AIO_USERNAME}/feeds/${FEED_KEY}`);
-        client.onMessageArrived = onMessage;
-      },
-      onFailure: (responseObject) => {
-        console.log('aaaaaaaa');
-      },
-      
+    let feed =  'nguyenha25012002/feeds/temperature';
+    let client = connect('mqtt://io.adafruit.com',{
+    username: "nguyenha25012002",
+    password: "aio_cSrM59tpae7B3sQktwiYdKGYxSqb",
     });
-  // }, [])
+  
+    client.on('connect', () => {
+    // sub đúng kênh để nhận dữ liệu
+    client.subscribe('nguyenha25012002/feeds/ligh-on-off');
+        console.log('há há ');
+  
+  
+    });
+  
+    client.on('reconnect', () => {
+        client.subscribe('nguyenha25012002/feeds/temperature');
+        console.log('reconnected ');
+    });
+  
+    client.on('error', (err) => console.log('error', err));
+  
+    client.on('offline', () => connect = false);
+  
+    client.on('close', () => connect = false);
+    useEffect(() => {
+    client.on('message', (topic, message) => {
+      console.log(`Received message: ${message.toString()}`);
+      setTemp("hihi");
+    });
+  }, []);
 
   const handlePress = () => {
   };

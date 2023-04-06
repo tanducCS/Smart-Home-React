@@ -29,7 +29,7 @@ export default function SimpleBottomNavigation() {
       <BottomNavigation sx={{
         border: 1,
         borderRadius:2,
-        borderColor:'text.disabled',
+        borderColor: colors.grey[100],
         color: colors.grey[100]
       }}
         showLabels
@@ -38,11 +38,11 @@ export default function SimpleBottomNavigation() {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Living room" icon={<ChairIcon />} />
-        <BottomNavigationAction label="Kitchen" icon={<Kitchen />} />
-        <BottomNavigationAction label="Bedroom" icon={<BedIcon />} />
-        <BottomNavigationAction label="Movie room" icon={<LocalMoviesIcon/>} />
-        <BottomNavigationAction label="Game room" icon={<SportsEsportsIcon />} />
+        <BottomNavigationAction label="Living room" icon={<ChairIcon sx={{ color: value === 0 ? colors.blueAccent[700] : 'inherit' }} />}  />
+        <BottomNavigationAction label="Kitchen" icon={<Kitchen sx={{ color: value === 1 ? colors.blueAccent[700] : 'inherit' }}  />} />
+        <BottomNavigationAction label="Bedroom" icon={<BedIcon sx={{ color: value === 2 ? colors.blueAccent[700] : 'inherit' }} />} />
+        <BottomNavigationAction label="Movie room" icon={<LocalMoviesIcon sx={{ color: value === 3 ? colors.blueAccent[700] : 'inherit' }} />} />
+        <BottomNavigationAction label="Game room" icon={<SportsEsportsIcon sx={{ color: value === 4 ? colors.blueAccent[700] : 'inherit' }} />} />
       </BottomNavigation>
     </Box>
   );
