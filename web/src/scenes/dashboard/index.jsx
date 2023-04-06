@@ -15,11 +15,29 @@ import ProgressCircle from "../../components/ProgressCircle";
 import Navbar from "../../components/Navbar";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { Air, Opacity, Thermostat, Tv, WbIncandescent } from "@mui/icons-material";
-
+import { useState,useEffect } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const [currentDate, setCurrentDate] = useState('');
+  const [currentTime, setCurrentTime] = useState('');
+  useEffect(() => {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    setCurrentDate(
+      date + '/' + month + '/' + year
+    );
+  }, []);
+  useEffect(() => {
+    var hours = String(new Date().getHours()); //Current Hours
+    var min = String(new Date().getMinutes()); //Current Minutes
+    setCurrentTime(
+      hours + ':' + min
+    );
+  }, []);
 
   return (
     <Box m="20px">
@@ -156,10 +174,10 @@ const Dashboard = () => {
           >
             <WbSunnyIcon fontSize="large"></WbSunnyIcon>
             <Typography variant="h1" fontSize="80px">
-              08:00
+              {currentTime}
             </Typography>
             <Typography variant="h5" fontSize="20px">
-              20/11/2002
+              {currentDate}
             </Typography>
             <Box
               display="flex"

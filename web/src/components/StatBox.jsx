@@ -1,10 +1,18 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { useState } from "react";
+import { Box, Switch, Typography, useTheme } from "@mui/material";
 import { tokens } from "../theme";
-import ProgressCircle from "./ProgressCircle";
 
 const StatBox = ({ title, subtitle, icon, progress, increase }) => {
+  const [checked, setChecked] = useState(false);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
+
 
   return (
     <Box width="100%" m="0 30px">
@@ -20,7 +28,7 @@ const StatBox = ({ title, subtitle, icon, progress, increase }) => {
           </Typography>
         </Box>
         <Box>
-          <ProgressCircle progress={progress} />
+          <Switch onChange={handleChange} color="secondary"></Switch>
         </Box>
       </Box>
       <Box display="flex" justifyContent="space-between" mt="2px">
