@@ -16,7 +16,7 @@ import Navbar from "../../components/Navbar";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { Air, Opacity, Thermostat, Tv, WbIncandescent } from "@mui/icons-material";
 import { useState,useEffect } from "react";
-
+import {connect} from "mqtt/dist/mqtt"
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -39,6 +39,33 @@ const Dashboard = () => {
     );
   }, []);
 
+  let client = connect('mqtt://io.adafruit.com',{
+        username: "nguyenha25012002",
+        password: "aio_cSrM59tpae7B3sQktwiYdKGYxSqb",
+      });
+    
+    client.on('connect', () => {
+        // sub đúng kênh để nhận dữ liệu
+            client.subscribe("nguyenha25012002/feeds/temperature");
+            console.log('connected ' );
+    
+        
+    });
+    
+    client.on('reconnect', () => {
+      client.subscribe("nguyenha25012002/feeds/temperature");
+      console.log('reconnected ' );
+    });
+    
+    client.on('error', (err) => console.log('error', err));
+    
+    client.on('offline', () => connect = false);
+    
+    client.on('close', () => connect = false);
+    
+    client.on('message', (topic, message) => {
+        console.log(message.toString('utf8'));
+    });
   return (
     <Box m="20px">
       {/* HEADER */}
