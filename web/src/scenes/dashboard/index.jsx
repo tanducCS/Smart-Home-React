@@ -49,6 +49,7 @@ const Dashboard = () => {
     // gửi yêu cầu HTTP đến máy chủ Node.js để lấy dữ liệu từ MQTT
     axios.get('http://localhost:3000/connect')
       .then(response => {
+        console.log(response.data.data);
         setTemp(response.data.data);
       })
       .catch(error => {
@@ -134,13 +135,13 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <StatBox
-            title="Smart TV"
+          <StatBox1
+            title="Fan"
             subtitle="Active for 3 hours"
             progress="50"
             increase="5Kwh"
             icon={
-              <Tv
+              <Air
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
