@@ -1,7 +1,7 @@
 
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3006;
 
 
 // nhận tin nhắn từ chủ đề và trả về dữ liệu dưới dạng JSON
@@ -31,7 +31,7 @@ client.on('connect', () => {
 app.get('/connect', function (req, res) {
     client.on('message', function (topic, message) {
         console.log({ data: message.toString() });
-        res.json({ data: message.toString() });
+        res.json({ data: message.tyoString() });
     });
 });
       

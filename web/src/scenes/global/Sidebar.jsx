@@ -144,7 +144,7 @@ const Sidebar = () => {
             />
             <Item
               title="Setting"
-              to="/geography"
+              to="/form"
               icon={<SettingsIcon />}
               selected={selected}
               setSelected={setSelected}
