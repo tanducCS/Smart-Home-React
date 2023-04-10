@@ -13,6 +13,6 @@ client.on('connect', function () {
     console.log('Connected to Adafruit');
     // Publish message to the feed
     client.publish("nguyenha25012002/feeds/ligh-on-off", '0');   
-  });
+});
 
   client.on('error', (err) => console.log('error', err));
