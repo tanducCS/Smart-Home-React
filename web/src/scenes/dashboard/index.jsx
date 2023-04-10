@@ -47,7 +47,7 @@ const Dashboard = () => {
   const [temp,setTemp]=useState("default");
   useEffect(() => {
     // gửi yêu cầu HTTP đến máy chủ Node.js để lấy dữ liệu từ MQTT
-    axios.get('http://localhost:3000/connect')
+    axios.get('http://localhost:3000/api/getTemp')
       .then(response => {
         console.log(response.data.data);
         setTemp(response.data.data);

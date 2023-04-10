@@ -10,7 +10,7 @@ const port = 3000;
 // nhận tin nhắn từ chủ đề và trả về dữ liệu dưới dạng JSON
 
 var mqtt = require("mqtt");
-let client  = mqtt.connect("mqtt://nguyenha25012002:aio_FJSl11XytfrvjJaJuRA6zhGbkP9G@io.adafruit.com",1883);
+let client  = mqtt.connect("mqtt://nguyenha25012002:aio_rrpY96Qm12VPRHkNJOuCd39HQ9IL@io.adafruit.com",1883);
 client.on('connect', () => {
     // sub đúng kênh để nhận dữ liệu
     client.subscribe("nguyenha25012002/feeds/temperature");
@@ -23,7 +23,7 @@ client.on('reconnect', () => {
   client.subscribe("nguyenha25012002/feeds/temperature");
   console.log('reconnected ' );
 });
-    
+
 client.on('error', (err) => console.log('error', err));
     
     // client.on('offline', () => connect = false);

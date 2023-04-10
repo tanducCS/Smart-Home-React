@@ -5,7 +5,7 @@ var username = "nguyenha25012002";
 var key = "aio_FJSl11XytfrvjJaJuRA6zhGbkP9G";
 var feedName = 'ligh_on_off';
 
-let client  = mqtt.connect("mqtt://nguyenha25012002:aio_FJSl11XytfrvjJaJuRA6zhGbkP9G@io.adafruit.com", 1883);
+let client  = mqtt.connect("mqtt://nguyenha25012002:aio_MEVv184VPv9Sjenti1EM1WKmXU9y@io.adafruit.com", 1883);
 
 
 

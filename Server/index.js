@@ -1,30 +1,16 @@
-import { connect } from 'mqtt';
-const client = connect('mqtt://io.adafruit.com', {
-  username: 'nguyenha25012002',
-  password: '',
-});
-feed="nguyenha25012002/feeds/temperature"
-client.on('connect', () => {
-    console.log("connected")
-    // sub đúng kênh để nhận dữ liệu
-        client.subscribe(feed);
-        console.log('connected ');
-    
-    
-});
+const express = require("express");
+const cors = require('cors')
+const app = express()
+ 
+app.use(cors())
 
-client.on('reconnect', () => {
-         client.subscribe(feed);
-        console.log('reconnected ');
+const router = require("./router");
 
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-client.on('error', (err) => console.log('error', err));
+app.use("/api", router);
 
-client.on('offline', () => connect = false);
+const PORT =  3000;
 
-client.on('close', () => connect = false);
-
-client.on('message', (topic, message) => {
-    console.log(message.toString('utf8'));
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
