@@ -17,9 +17,8 @@ import Navbar from "../../components/Navbar";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { Air, Opacity, Thermostat, Tv, WbIncandescent } from "@mui/icons-material";
 import { useState,useEffect } from "react";
-import {connect} from "mqtt/dist/mqtt"
+import {connect} from "mqtt/dist/mqtt";
 import axios from 'axios';
-
 
 
 const Dashboard = () => {
