@@ -17,9 +17,7 @@ import Navbar from "../../components/Navbar";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { Air, Opacity, Thermostat, Tv, WbIncandescent } from "@mui/icons-material";
 import { useState,useEffect } from "react";
-import {connect} from "mqtt/dist/mqtt"
-import axios from 'axios';
-
+import io from 'socket.io-client';
 
 
 const Dashboard = () => {
@@ -45,50 +43,31 @@ const Dashboard = () => {
   }, []);
 
   const [temp,setTemp]=useState("default");
-  useEffect(() => {
-    // gửi yêu cầu HTTP đến máy chủ Node.js để lấy dữ liệu từ MQTT
-    axios.get('http://localhost:3000/api/getTemp')
-      .then(response => {
-        console.log(response.data.data);
-        setTemp(response.data.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-
-
-
-
-  // let client = connect('mqtt://io.adafruit.com',{
-  //       username: "nguyenha25012002",
-  //       password: "aio_cSrM59tpae7B3sQktwiYdKGYxSqb",
-
+  const [humi,setHumi]=useState("default");
+  // useEffect(() => {
+  //   // gửi yêu cầu HTTP đến máy chủ Node.js để lấy dữ liệu từ MQTT
+  //   axios.get('http://localhost:3000/api/getTemp')
+  //     .then(response => {
+  //       console.log(response.data.data);
+  //       setTemp(response.data.data);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
   //     });
-    
-  //   client.on('connect', () => {
-  //       // sub đúng kênh để nhận dữ liệu
-  //           client.subscribe("nguyenha25012002/feeds/temperature");
-  //           console.log('connected ' );
-    
-        
-  //   });
-    
-  //   client.on('reconnect', () => {
-  //     client.subscribe("nguyenha25012002/feeds/temperature");
-  //     console.log('reconnected ' );
-  //   });
-    
-  //   client.on('error', (err) => console.log('error', err));
-    
-  //   client.on('offline', () => connect = false);
-    
-  //   client.on('close', () => connect = false);
-    
-  //   client.on('message', (topic, message) => {
-  //       console.log(message.toString('utf8'));
-  //       setTemp(message.toString('utf8'));
-  //   });
+  // }, []);
+
+  const socket = io.connect('http://localhost:3000');
+  // useEffect(() => {
+  // Listen for temperature updates from the server
+  socket.on('temperatureUpdate', (temperature) => {
+    console.log(`Temperature updated: ${temperature}`);
+    setTemp(`temperature: ${temperature}`);
+  });
+  socket.on('humidityUpdate', (humidity) => {
+    console.log(`Humidity updated: ${humidity}`);
+    setHumi(`humidity: ${humidity}`);
+  });
+  // }, []);
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -237,12 +216,12 @@ const Dashboard = () => {
             <Thermostat fontSize="large"></Thermostat>
             <Typography variant="h4">{temp}℃</Typography>
             <Box
-              marginLeft="160px"
+              marginLeft="90px"
               display="flex"
               flexDirection="row"
             >
               <Opacity fontSize="large"></Opacity>
-              <Typography variant="h4">68%</Typography>
+              <Typography variant="h4">{humi}%</Typography>
             </Box>
             
             </Box>

@@ -15,4 +15,4 @@ client.on('connect', function () {
     client.publish("nguyenha25012002/feeds/ligh-on-off", '0');   
 });
 
-  client.on('error', (err) => console.log('error', err));
+client.on('error', (err) => console.log('error', err));
