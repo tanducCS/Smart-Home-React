@@ -1,30 +1,45 @@
-import { connect } from 'mqtt';
-const client = connect('mqtt://io.adafruit.com', {
-  username: 'nguyenha25012002',
-  password: '',
+const express = require('express');
+const app = express();
+const cors = require("cors");
+app.use(cors());
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
+    cors: {
+      origin: "http://localhost:3001",
+      methods: ["GET", "POST"]
+    }
+  });
+  
+  
+const mqtt = require('./controllers/controller');
+
+
+// Start the server and listen for connections
+server.listen(3000, () => {
+  console.log('Server started on port 3000');
 });
-feed="nguyenha25012002/feeds/temperature"
-client.on('connect', () => {
-    console.log("connected")
-    // sub đúng kênh để nhận dữ liệu
-        client.subscribe(feed);
-        console.log('connected ');
-    
-    
-});
 
-client.on('reconnect', () => {
-         client.subscribe(feed);
-        console.log('reconnected ');
+// Update the temperature every 30 seconds and send it to the client
+// setInterval(() => {
+    mqtt.subscribe('nguyenha25012002/feeds/temperature', function(topic, message) {
+        console.log(`Received message on topic ${topic}: ${message.toString()}`);
+        if(topic=="nguyenha25012002/feeds/temperature"){
+          var temperature= message.toString();
+          io.emit('temperatureUpdate', temperature);
+        }
+        else if(topic=="nguyenha25012002/feeds/humidity"){
+          var humidity= message.toString();
+          io.emit('humidityUpdate', humidity);
+        }
+    });
+// }, 30000);
 
-});
+const router = require("./router");
 
-client.on('error', (err) => console.log('error', err));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-client.on('offline', () => connect = false);
+app.use("/api", router);
 
-client.on('close', () => connect = false);
-
-client.on('message', (topic, message) => {
-    console.log(message.toString('utf8'));
-});
+// const PORT =  3000;

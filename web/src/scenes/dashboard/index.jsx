@@ -11,12 +11,15 @@ import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
+import StatBox1 from "../../components/StatBox1";
 import ProgressCircle from "../../components/ProgressCircle";
 import Navbar from "../../components/Navbar";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { Air, Opacity, Thermostat, Tv, WbIncandescent } from "@mui/icons-material";
 import { useState,useEffect } from "react";
-import {connect} from "mqtt/dist/mqtt"
+import io from 'socket.io-client';
+
+
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -39,33 +42,32 @@ const Dashboard = () => {
     );
   }, []);
 
-  let client = connect('mqtt://io.adafruit.com',{
-        username: "nguyenha25012002",
-        password: "aio_cSrM59tpae7B3sQktwiYdKGYxSqb",
-      });
-    
-    client.on('connect', () => {
-        // sub đúng kênh để nhận dữ liệu
-            client.subscribe("nguyenha25012002/feeds/temperature");
-            console.log('connected ' );
-    
-        
-    });
-    
-    client.on('reconnect', () => {
-      client.subscribe("nguyenha25012002/feeds/temperature");
-      console.log('reconnected ' );
-    });
-    
-    client.on('error', (err) => console.log('error', err));
-    
-    client.on('offline', () => connect = false);
-    
-    client.on('close', () => connect = false);
-    
-    client.on('message', (topic, message) => {
-        console.log(message.toString('utf8'));
-    });
+  const [temp,setTemp]=useState("default");
+  const [humi,setHumi]=useState("default");
+  // useEffect(() => {
+  //   // gửi yêu cầu HTTP đến máy chủ Node.js để lấy dữ liệu từ MQTT
+  //   axios.get('http://localhost:3000/api/getTemp')
+  //     .then(response => {
+  //       console.log(response.data.data);
+  //       setTemp(response.data.data);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
+  const socket = io.connect('http://localhost:3000');
+  // useEffect(() => {
+  // Listen for temperature updates from the server
+  socket.on('temperatureUpdate', (temperature) => {
+    console.log(`Temperature updated: ${temperature}`);
+    setTemp(`temperature: ${temperature}`);
+  });
+  socket.on('humidityUpdate', (humidity) => {
+    console.log(`Humidity updated: ${humidity}`);
+    setHumi(`humidity: ${humidity}`);
+  });
+  // }, []);
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -112,13 +114,13 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <StatBox
-            title="Smart TV"
+          <StatBox1
+            title="Fan"
             subtitle="Active for 3 hours"
             progress="50"
             increase="5Kwh"
             icon={
-              <Tv
+              <Air
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -131,7 +133,7 @@ const Dashboard = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <StatBox
+          <StatBox1
             title="Fan"
             subtitle="Active for 3 hours"
             progress="50"
@@ -212,14 +214,14 @@ const Dashboard = () => {
               mt="30px"
             >
             <Thermostat fontSize="large"></Thermostat>
-            <Typography variant="h4">28℃</Typography>
+            <Typography variant="h4">{temp}℃</Typography>
             <Box
-              marginLeft="160px"
+              marginLeft="90px"
               display="flex"
               flexDirection="row"
             >
               <Opacity fontSize="large"></Opacity>
-              <Typography variant="h4">68%</Typography>
+              <Typography variant="h4">{humi}%</Typography>
             </Box>
             
             </Box>
