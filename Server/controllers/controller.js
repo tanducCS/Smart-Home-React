@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const client = mqtt.connect("mqtt://nguyenha25012002:aio_CCth75LtwRyPq805FYOBibkBtHu2@io.adafruit.com",1883);
+const client = mqtt.connect("mqtt://nguyenha25012002:aio_lQZY39Lx8ikoZ1g0EeCKOGPoO0Rr@io.adafruit.com",1883);
 client.on('connect', function () {
   console.log('Connected to MQTT broker');
 });
