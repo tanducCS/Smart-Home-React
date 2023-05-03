@@ -8,49 +8,49 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-init({
-  size: 10000,
-  storageBackend: AsyncStorage,
-  defaultExpires: 1000 * 3600 * 24,
-  enableCache: true,
-  reconnect: false,
-  sync: {}
-});
+// init({
+//   size: 10000,
+//   storageBackend: AsyncStorage,
+//   defaultExpires: 1000 * 3600 * 24,
+//   enableCache: true,
+//   reconnect: false,
+//   sync: {}
+// });
 
 const HomeScreen = ({ navigation }) => {
-  
+
   const [temp, setTemp] = useState('dataDefault');
   // useEffect(() => {
-    let feed =  'nguyenha25012002/feeds/temperature';
-    let client = connect('mqtt://io.adafruit.com',{
-    username: "nguyenha25012002",
-    password: "aio_cSrM59tpae7B3sQktwiYdKGYxSqb",
-    });
-  
-    client.on('connect', () => {
-    // sub đúng kênh để nhận dữ liệu
-    client.subscribe('nguyenha25012002/feeds/ligh-on-off');
-        console.log('há há ');
-  
-  
-    });
-  
-    client.on('reconnect', () => {
-        client.subscribe('nguyenha25012002/feeds/temperature');
-        console.log('reconnected ');
-    });
-  
-    client.on('error', (err) => console.log('error', err));
-  
-    client.on('offline', () => connect = false);
-  
-    client.on('close', () => connect = false);
-    useEffect(() => {
-    client.on('message', (topic, message) => {
-      console.log(`Received message: ${message.toString()}`);
-      setTemp("hihi");
-    });
-  }, []);
+  // let feed = 'nguyenha25012002/feeds/temperature';
+  // let client = connect('mqtt://io.adafruit.com', {
+  //   username: "nguyenha25012002",
+  //   password: "aio_cSrM59tpae7B3sQktwiYdKGYxSqb",
+  // });
+
+  // client.on('connect', () => {
+  //   // sub đúng kênh để nhận dữ liệu
+  //   client.subscribe('nguyenha25012002/feeds/ligh-on-off');
+  //   console.log('há há ');
+
+
+  // });
+
+  // client.on('reconnect', () => {
+  //   client.subscribe('nguyenha25012002/feeds/temperature');
+  //   console.log('reconnected ');
+  // });
+
+  // client.on('error', (err) => console.log('error', err));
+
+  // client.on('offline', () => connect = false);
+
+  // client.on('close', () => connect = false);
+  // useEffect(() => {
+  //   client.on('message', (topic, message) => {
+  //     console.log(`Received message: ${message.toString()}`);
+  //     setTemp("hihi");
+  //   });
+  // }, []);
 
   const handlePress = () => {
   };
@@ -87,7 +87,7 @@ const HomeScreen = ({ navigation }) => {
     >
       <View
         justifyContent={'center'}
-        backgroundColor={"#000000"}
+        backgroundColor={"#2A2A37"}
         width="100%"
         height="25%"
       >
@@ -155,11 +155,15 @@ const HomeScreen = ({ navigation }) => {
           <View style={styles.overviewItemRight} >
             <View display="flex" flexDirection="row" >
               <FontAwesome5 name="temperature-low" paddingLeft="7%" color={"white"} size={40} />
-              <Text style={styles.dataText}>{temp} </Text>
+              <Text style={styles.dataText}>{temp + "°C "} </Text>
             </View>
             <View display="flex" flexDirection="row" >
               <Ionicons name="water-outline" paddingTop="20%" color={"white"} size={40} fontWeight='bold' />
-              <Text style={styles.dataText} paddingTop="20%" >{temp} </Text>
+              <Text style={styles.dataText} paddingTop="20%" >{humi + "%"} </Text>
+            </View>
+            <View display="flex" flexDirection="row" >
+              <Ionicons name="water-outline" paddingTop="20%" color={"white"} size={40} fontWeight='bold' />
+              <Text style={styles.dataText} paddingTop="20%" >{humi + "%"} </Text>
             </View>
           </View>
         </View>
@@ -247,7 +251,7 @@ const styles = StyleSheet.create({
   },
 
   overview: {
-    backgroundColor: "#000000",
+    backgroundColor: "#2A2A37",
     display: "flex",
     flexDirection: "column",
     height: "25%",

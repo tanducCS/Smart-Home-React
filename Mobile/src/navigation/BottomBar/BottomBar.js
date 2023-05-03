@@ -21,7 +21,8 @@ import FanListLivingroom from '../../Screens/HomeScreen/LivingRoom/FanList';
 import LightListKitchen from '../../Screens/HomeScreen/Kitchen/LightList';
 import FanListKitchen from '../../Screens/HomeScreen/Kitchen/FanList';
 
-
+//EditProfile
+import EditProfileScreen from '../../Screens/SettingScreen/EditProfileScreen';
 
 
 //Livingroom
@@ -61,6 +62,16 @@ export const HomeStackScreen = () => (
   </HomeStack.Navigator>
 );
 
+//Setting
+const SettingStack = createStackNavigator();
+
+export const SettingStackScreen = () => (
+  <SettingStack.Navigator screenOptions={{ headerShown: false }}>
+    <SettingStack.Screen name="Setting" component={SettingScreen} />
+    <SettingStack.Screen name="EditProfile" component={EditProfileScreen} />
+  </SettingStack.Navigator>
+);
+
 
 //Tab
 const Tab = createMaterialBottomTabNavigator();
@@ -95,7 +106,7 @@ const BottomBar = () => {
             <MaterialCommunityIcons name="timer-settings" color={color} size={29} />
           ),
         }} />
-      <Tab.Screen name="Setting" component={SettingScreen}
+      <Tab.Screen name="SettingTab" component={SettingStackScreen}
         options={{
           tabBarLabel: 'Setting',
           tabBarIcon: ({ color }) => (

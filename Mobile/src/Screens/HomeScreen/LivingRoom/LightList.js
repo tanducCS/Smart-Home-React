@@ -20,9 +20,6 @@ const LightListLivingroom = ({ navigation }) => {
         navigation.navigate("FanListLivingroom")
     );
 
-    const onACListLivingroom = () => (
-        navigation.navigate("ACListLivingroom")
-    );
 
     const [isEnabled0, setIsEnabled0] = useState(false);
     const [isEnabled1, setIsEnabled1] = useState(false);
