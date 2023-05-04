@@ -7,17 +7,21 @@ const mqtt = require('./controllers/controller');
 router.post('/turnLightOn', (req, res) => {
   const data = req.body.active;
   mqtt.publish("nguyenha25012002/feeds/ligh-on-off", data);
-  // xử lý dữ liệu
-  // ...
-  
   res.send('Data received');
 });
 router.post('/turnLightOff', (req, res) => {
   const data = req.body.active;
   mqtt.publish("nguyenha25012002/feeds/ligh-on-off", data);
-  // xử lý dữ liệu
-  // ...
-  
+  res.send('Data received');
+});
+router.post('/turnFanOn', (req, res) => {
+  const data = req.body.active;
+  mqtt.publish("nguyenha25012002/feeds/fan-speed", data);
+  res.send('Data received');
+});
+router.post('/turnFanOff', (req, res) => {
+  const data = req.body.active;
+  mqtt.publish("nguyenha25012002/feeds/fan-speed", data);
   res.send('Data received');
 });
 router.get("/getTemp", (req, res) => {
@@ -31,7 +35,7 @@ router.get("/getHumi", (req, res) => {
     console.log(`Received message on topic ${topic}: ${message.toString()}`);
   });
 });
-router.post("/turnLed", (req, res) => {
-  mqtt.publish("nguyenha25012002/feeds/ligh-on-off", message);
-});
+// router.post("/turnLed", (req, res) => {
+//   mqtt.publish("nguyenha25012002/feeds/ligh-on-off", message);
+// });
 module.exports = router;

@@ -14,26 +14,24 @@ const io = require('socket.io')(server, {
   
 const mqtt = require('./controllers/controller');
 
-
+const PORT = process.env.PORT || 3000;
 // Start the server and listen for connections
-server.listen(3000, () => {
+server.listen(PORT, () => {
   console.log('Server started on port 3000');
 });
 
 // Update the temperature every 30 seconds and send it to the client
-// setInterval(() => {
-    mqtt.subscribe('nguyenha25012002/feeds/temperature', function(topic, message) {
-        console.log(`Received message on topic ${topic}: ${message.toString()}`);
-        if(topic=="nguyenha25012002/feeds/temperature"){
-          var temperature= message.toString();
-          io.emit('temperatureUpdate', temperature);
-        }
-        else if(topic=="nguyenha25012002/feeds/humidity"){
-          var humidity= message.toString();
-          io.emit('humidityUpdate', humidity);
-        }
-    });
-// }, 30000);
+mqtt.subscribe('nguyenha25012002/feeds/temperature', function(topic, message) {
+  console.log(`Received message on topic ${topic}: ${message.toString()}`);
+    if(topic=="nguyenha25012002/feeds/temperature"){
+      var temperature= message.toString();
+      io.emit('temperatureUpdate', temperature);
+    }
+    else if(topic=="nguyenha25012002/feeds/humidity"){
+      var humidity= message.toString();
+      io.emit('humidityUpdate', humidity);
+    }
+});
 
 const router = require("./router");
 
@@ -42,4 +40,4 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", router);
 
-// const PORT =  3000;
+
