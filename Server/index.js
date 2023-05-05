@@ -6,7 +6,7 @@ app.use(cors());
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
     cors: {
-      origin: "http://localhost:3001",
+      origin: "https://smart-home-react-pi.vercel.app",
       methods: ["GET", "POST"]
     }
   });
