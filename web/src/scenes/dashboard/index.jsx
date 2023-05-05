@@ -44,21 +44,8 @@ const Dashboard = () => {
 
   const [temp,setTemp]=useState("default");
   const [humi,setHumi]=useState("default");
-  // useEffect(() => {
-  //   // gửi yêu cầu HTTP đến máy chủ Node.js để lấy dữ liệu từ MQTT
-  //   axios.get('http://localhost:3000/api/getTemp')
-  //     .then(response => {
-  //       console.log(response.data.data);
-  //       setTemp(response.data.data);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   const socket = io.connect('https://smart-home-react.onrender.com:443');
-  // useEffect(() => {
-  // Listen for temperature updates from the server
   socket.on('temperatureUpdate', (temperature) => {
     console.log(`Temperature updated: ${temperature}`);
     setTemp(`temperature: ${temperature}`);
@@ -67,7 +54,6 @@ const Dashboard = () => {
     console.log(`Humidity updated: ${humidity}`);
     setHumi(`humidity: ${humidity}`);
   });
-  // }, []);
   return (
     <Box m="20px">
       {/* HEADER */}
