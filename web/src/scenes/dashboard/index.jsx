@@ -56,7 +56,7 @@ const Dashboard = () => {
   //     });
   // }, []);
 
-  const socket = io.connect('http://localhost:3000');
+  const socket = io.connect('https://smart-home-react.onrender.com:443');
   // useEffect(() => {
   // Listen for temperature updates from the server
   socket.on('temperatureUpdate', (temperature) => {
