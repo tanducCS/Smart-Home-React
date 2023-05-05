@@ -1,5 +1,6 @@
 const mqtt = require('mqtt');
-const client = mqtt.connect("mqtt://nguyenha25012002:aio_jcia37vvDxh4yJ2WjHrCqwGOSbCj@io.adafruit.com",1883);
+require("dotenv").config();
+const client = mqtt.connect(`mqtt://nguyenha25012002:${process.env.KEY}@io.adafruit.com`,1883);
 client.on('connect', function () {
   console.log('Connected to MQTT broker');
 });
@@ -13,7 +14,6 @@ module.exports = {
   },
   subscribe: function ( callback) {
     client.on('message', function (topic, message) {
-        // console.log({ message: message.toString() });
       callback(topic, message);
     });
   },
