@@ -1,5 +1,5 @@
 const mqtt = require('mqtt');
-const client = mqtt.connect("mqtt://nguyenha25012002:aio_uhYk31bGDcupNrpAdTcaPSKnY8ug@io.adafruit.com",1883);
+const client = mqtt.connect("mqtt://nguyenha25012002:aio_jcia37vvDxh4yJ2WjHrCqwGOSbCj@io.adafruit.com",1883);
 client.on('connect', function () {
   console.log('Connected to MQTT broker');
 });
@@ -11,7 +11,7 @@ module.exports = {
   publish: function (topic, message) {
     client.publish(topic, message);
   },
-  subscribe: function (topic, callback) {
+  subscribe: function ( callback) {
     client.on('message', function (topic, message) {
         // console.log({ message: message.toString() });
       callback(topic, message);
