@@ -19,7 +19,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const HomeScreen = ({ navigation }) => {
 
-  const [temp, setTemp] = useState('dataDefault');
+  const [temp, setTemp] = useState('');
+  const [humi, setHumi] = useState('');
   // useEffect(() => {
   // let feed = 'nguyenha25012002/feeds/temperature';
   // let client = connect('mqtt://io.adafruit.com', {
@@ -161,10 +162,10 @@ const HomeScreen = ({ navigation }) => {
               <Ionicons name="water-outline" paddingTop="20%" color={"white"} size={40} fontWeight='bold' />
               <Text style={styles.dataText} paddingTop="20%" >{humi + "%"} </Text>
             </View>
-            <View display="flex" flexDirection="row" >
+            {/* <View display="flex" flexDirection="row" >
               <Ionicons name="water-outline" paddingTop="20%" color={"white"} size={40} fontWeight='bold' />
               <Text style={styles.dataText} paddingTop="20%" >{humi + "%"} </Text>
-            </View>
+            </View> */}
           </View>
         </View>
       </View>
