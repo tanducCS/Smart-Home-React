@@ -11,7 +11,7 @@ module.exports = {
   publish: function (topic, message) {
     client.publish(topic, message);
   },
-  subscribe: function (topic, callback) {
+  subscribe: function (callback) {
     client.on('message', function (topic, message) {
         // console.log({ message: message.toString() });
       callback(topic, message);

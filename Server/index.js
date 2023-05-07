@@ -21,7 +21,7 @@ server.listen(PORT, () => {
 });
 
 // Update the temperature every 30 seconds and send it to the client
-mqtt.subscribe('nguyenha25012002/feeds/temperature', function(topic, message) {
+mqtt.subscribe(function(topic, message) {
   console.log(`Received message on topic ${topic}: ${message.toString()}`);
     if(topic=="nguyenha25012002/feeds/temperature"){
       var temperature= message.toString();
@@ -39,5 +39,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", router);
+
+
+// Khai báo router
+const userRouter = require('./routes/userRouter');
+const temperatureRouter = require('./routes/temperatureRouter');
+// Sử dụng router
+app.use('/users', userRouter);
+app.use('./temperature', temperatureRouter);
+
+
 
 
