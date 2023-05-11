@@ -43,11 +43,11 @@ app.use("/api", router);
 
 
 // Khai báo router
-const userRouter = require('./routes/userRouter');
-const temperatureRouter = require('./routes/temperatureRouter');
+// const userRouter = require('./routes/userRouter');
+// const temperatureRouter = require('./routes/temperatureRouter');
 // Sử dụng router
-app.use('/users', userRouter);
-app.use('./temperature', temperatureRouter);
+// app.use('/users', userRouter);
+// app.use('./temperature', temperatureRouter);
 
 
 
