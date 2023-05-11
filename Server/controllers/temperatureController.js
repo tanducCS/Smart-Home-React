@@ -1,4 +1,55 @@
 const Temperature = require('../models/temperature');
+const nodemailer = require('nodemailer');
+const { OAuth2Client } = require('google-auth-library');
+
+const GOOGLE_MAILER_CLIENT_ID = '192145918819-2rr0pbu13q3bo1lb8us1th5vafv1ld44.apps.googleusercontent.com'
+const GOOGLE_MAILER_CLIENT_SECRET = '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'
+const GOOGLE_MAILER_REFRESH_TOKEN = '1//04HCcNPctr9NqCgYIARAAGAQSNwF-L9IrAYl9G2yksMaxr1-P7lLAo0n4MeOOc_F71APJ3oAIsqfQDGhbQBTeAirlrMyUfYPvImE'
+const ADMIN_EMAIL_ADDRESS = 'cubi28202@gmail.com'
+
+const myOAuth2Client = new OAuth2Client(
+  GOOGLE_MAILER_CLIENT_ID,
+  GOOGLE_MAILER_CLIENT_SECRET
+)
+
+myOAuth2Client.setCredentials({
+  refresh_token: GOOGLE_MAILER_REFRESH_TOKEN
+})
+
+
+// Hàm gửi nhiệt độ khi vượt quá ngưỡng
+const sendEmailNotification = (temperature,myAccessToken) => {
+  const threshold = 35;
+  const emailRecipient = 'hotanduc.cs@gmail.com';
+  if(temperature > threshold){
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: ADMIN_EMAIL_ADDRESS,
+        clientId: GOOGLE_MAILER_CLIENT_ID,
+        clientSecret: GOOGLE_MAILER_CLIENT_SECRET,
+        refresh_token: GOOGLE_MAILER_REFRESH_TOKEN,
+        accessToken: myAccessToken
+      },
+    });
+
+    const mailOptions = {
+      to: emailRecipient,
+      subject: 'Cảnh báo nhiệt độ vượt ngưỡng',
+      text: `Nhiệt độ hiện tại là ${temperature}°C, vượt quá ngưỡng ${threshold}°C.`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error sending email notification:', error);
+      } else {
+        console.log('Email notification sent:', info.response);
+      }
+    });
+  }
+};
+
 
 // Lấy tất cả các nhiệt độ
 const getAllTemperatures = async (req, res) => {
@@ -31,6 +82,18 @@ const createTemperature = async (req, res) => {
     const { value } = req.body;
     const temperature = new Temperature({ value });
     const savedTemperature = await temperature.save();
+
+    /**
+     * Lấy AccessToken từ RefreshToken (bởi vì Access Token cứ một khoảng thời gian ngắn sẽ bị hết hạn)
+     * Vì vậy mỗi lần sử dụng Access Token, chúng ta sẽ generate ra một thằng mới là chắc chắn nhất.
+     */
+    const myAccessTokenObject = await myOAuth2Client.getAccessToken()
+    // Access Token sẽ nằm trong property 'token' trong Object mà chúng ta vừa get được ở trên
+    const myAccessToken = myAccessTokenObject?.token
+    // Tạo một biến Transport từ Nodemailer với đầy đủ cấu hình, dùng để gọi hành động gửi mail
+    //Gọi hàm sendEmailNotification với nhiệt độ mới
+    sendEmailNotification(value, myAccessToken);
+
     res.status(201).json(savedTemperature);
   } catch (error) {
     console.error(error);

@@ -1,7 +1,15 @@
 const express = require('express');
 const Temperature = require('../models/temperature');
 
+const temperatureController = require('../controllers/temperatureController');
+
 const router = express.Router();
+
+
+
+
+
+
 
 // Lấy tất cả các nhiệt độ
 router.get('/', async (req, res) => {
@@ -29,17 +37,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Tạo nhiệt độ mới
-router.post('/', async (req, res) => {
-  try {
-    const { value } = req.body;
-    const temperature = new Temperature({ value });
-    const savedTemperature = await temperature.save();
-    res.status(201).json(savedTemperature);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
+router.post('/', temperatureController.createTemperature);
 
 // Cập nhật nhiệt độ
 router.put('/:id', async (req, res) => {
