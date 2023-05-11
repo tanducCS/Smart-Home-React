@@ -11,7 +11,7 @@ const StatBox = ({ title, subtitle, icon, progress, increase }) => {
     setChecked(event.target.checked);
     if(checked){
       const data={active: "0"};
-      axios.post('http://localhost:3000/api/turnLightOn', data)
+      axios.post('https://smart-home-react.onrender.com:443/api/turnLightOn', data)
       .then((response) => {
         console.log(response);
       })
@@ -21,7 +21,7 @@ const StatBox = ({ title, subtitle, icon, progress, increase }) => {
     }
     else {
       const data={active: "1"};
-      axios.post('http://localhost:3000/api/turnLightOff', data)
+      axios.post('https://smart-home-react.onrender.com:443/api/turnLightOff', data)
       .then((response) => {
         console.log(response);
       })
