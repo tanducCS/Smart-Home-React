@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
-
+import io from 'socket.io-client';
 import init from 'react_native_mqtt';
 import Paho from 'paho-mqtt';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -19,40 +19,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const HomeScreen = ({ navigation }) => {
 
-  const [temp, setTemp] = useState('');
-  const [humi, setHumi] = useState('');
-  // useEffect(() => {
-  // let feed = 'nguyenha25012002/feeds/temperature';
-  // let client = connect('mqtt://io.adafruit.com', {
-  //   username: "nguyenha25012002",
-  //   password: "aio_cSrM59tpae7B3sQktwiYdKGYxSqb",
-  // });
-
-  // client.on('connect', () => {
-  //   // sub đúng kênh để nhận dữ liệu
-  //   client.subscribe('nguyenha25012002/feeds/ligh-on-off');
-  //   console.log('há há ');
-
-
-  // });
-
-  // client.on('reconnect', () => {
-  //   client.subscribe('nguyenha25012002/feeds/temperature');
-  //   console.log('reconnected ');
-  // });
-
-  // client.on('error', (err) => console.log('error', err));
-
-  // client.on('offline', () => connect = false);
-
-  // client.on('close', () => connect = false);
-  // useEffect(() => {
-  //   client.on('message', (topic, message) => {
-  //     console.log(`Received message: ${message.toString()}`);
-  //     setTemp("hihi");
-  //   });
-  // }, []);
-
   const handlePress = () => {
   };
   const onLivingRoom = () => {
@@ -61,6 +27,8 @@ const HomeScreen = ({ navigation }) => {
   const onKitchen = () => {
     navigation.navigate("Kitchen")
   };
+
+
   const [currentDate, setCurrentDate] = useState('');
   const [currentTime, setCurrentTime] = useState('');
   useEffect(() => {
@@ -78,6 +46,20 @@ const HomeScreen = ({ navigation }) => {
       hours + ':' + min
     );
   }, []);
+
+  const [temp, setTemp] = useState("default");
+  const [humi, setHumi] = useState("default");
+
+  const socket = io.connect('https://smart-home-react.onrender.com:443');
+  socket.on('temperatureUpdate', (temperature) => {
+    console.log(`Temperature updated: ${temperature}`);
+    setTemp(`temperature: ${temperature}`);
+  });
+  socket.on('humidityUpdate', (humidity) => {
+    console.log(`Humidity updated: ${humidity}`);
+    setHumi(`humidity: ${humidity}`);
+  });
+
   return (
     <View
       display="flex"
