@@ -45,6 +45,10 @@ mqtt.subscribe( async function(topic, message) {
     }
     else if(topic=="nguyenha25012002/feeds/humidity"){
       var humidity= message.toString();
+      // Gọi API tới server để lưu lại độ ẩm trong DB
+      await axios.post('http://localhost:3000/humidity', {
+          value: humidity,
+      })
       io.emit('humidityUpdate', humidity);
     }
 });
@@ -60,9 +64,11 @@ app.use("/api", router);
 // Khai báo router
 // const userRouter = require('./routes/userRouter');
 const temperatureRouter = require('./routes/temperatureRouter');
+const humidityRouter = require('./routes/humidityRouter');
 // Sử dụng router
 // app.use('/users', userRouter);
 app.use('/temperature', temperatureRouter);
+app.use('/humidity',humidityRouter);
 
 
 
