@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
 import { View, Button } from 'react-native';
 import { Audio } from 'expo-av';
-
+// import "@tensorflow-models/speech-commands/dist/speech-commands.min.js";
+// import "@tensorflow/tfjs/dist/tf.min.js";
 export default function RoutineScreen() {
   const URL = "https://teachablemachine.withgoogle.com/models/t16iW2gKw/";
-
+  const tf = require('@tensorflow/tfjs');
+  const speechCommands = require('@tensorflow-models/speech-commands');
     async function createModel() {
+      
         const checkpointURL = URL + "model.json"; // model topology
         const metadataURL = URL + "metadata.json"; // model metadata
-
-        const recognizer = speechCommands.create(
-            "BROWSER_FFT", // fourier transform type, not useful to change
-            undefined, // speech commands vocabulary feature, not useful for your models
-            checkpointURL,
-            metadataURL);
-
+        let recognizer;
+        const start = async () => {
+          await tf.ready();
+    
+          // the following line throws an error:
+          recognizer = speechCommands.create('BROWSER_FFT', 'directional4w');
+        };
+    
+        start();
         // check that model and metadata are loaded via HTTPS requests.
         await recognizer.ensureModelLoaded();
 
