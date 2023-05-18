@@ -4,7 +4,7 @@ const { OAuth2Client } = require('google-auth-library');
 
 const GOOGLE_MAILER_CLIENT_ID = '192145918819-2rr0pbu13q3bo1lb8us1th5vafv1ld44.apps.googleusercontent.com'
 const GOOGLE_MAILER_CLIENT_SECRET = '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'
-const GOOGLE_MAILER_REFRESH_TOKEN = '1//04HCcNPctr9NqCgYIARAAGAQSNwF-L9IrAYl9G2yksMaxr1-P7lLAo0n4MeOOc_F71APJ3oAIsqfQDGhbQBTeAirlrMyUfYPvImE'
+const GOOGLE_MAILER_REFRESH_TOKEN = '1//04zrFlKbvwV4OCgYIARAAGAQSNwF-L9IroeU4xmi1s7QwewY3z-CfuaAsvv5q4edRc5F71Z2SrbMecZwJf2iT0al9FgxcWQ6Bqwo'
 const ADMIN_EMAIL_ADDRESS = 'cubi28202@gmail.com'
 
 const myOAuth2Client = new OAuth2Client(
