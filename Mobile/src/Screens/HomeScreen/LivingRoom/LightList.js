@@ -21,15 +21,7 @@ const LightListLivingroom = ({ navigation }) => {
         navigation.navigate("FanListLivingroom")
     );
 
-
-    const [isEnabled0, setIsEnabled0] = useState(false);
-    const [isEnabled1, setIsEnabled1] = useState(false);
-
-
-
     const [checked, setChecked] = useState(false);
-
-
     const handleChange = (event) => {
         // setChecked(event.target.checked);
         if (checked) {
