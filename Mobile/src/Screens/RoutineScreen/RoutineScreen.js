@@ -1,67 +1,103 @@
-import React, { useState } from 'react';
-import { View, Button } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, Button, View } from 'react-native';
 import { Audio } from 'expo-av';
-// import "@tensorflow-models/speech-commands/dist/speech-commands.min.js";
-// import "@tensorflow/tfjs/dist/tf.min.js";
+
+
+
 export default function RoutineScreen() {
-  const URL = "https://teachablemachine.withgoogle.com/models/t16iW2gKw/";
-  const tf = require('@tensorflow/tfjs');
-  const speechCommands = require('@tensorflow-models/speech-commands');
-    async function createModel() {
-      
-        const checkpointURL = URL + "model.json"; // model topology
-        const metadataURL = URL + "metadata.json"; // model metadata
-        let recognizer;
-        const start = async () => {
-          await tf.ready();
-    
-          // the following line throws an error:
-          recognizer = speechCommands.create('BROWSER_FFT', 'directional4w');
-        };
-    
-        start();
-        // check that model and metadata are loaded via HTTPS requests.
-        await recognizer.ensureModelLoaded();
 
-        return recognizer;
+  startRecording = async () => {
+    const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    if (status !== 'granted') return;
+
+    this.setState({ isRecording: true });
+    // some of these are not applicable, but are required
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: true,
+      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      playThroughEarpieceAndroid: true,
+
+    });
+    const recording = new Audio.Recording();
+    try {
+      await recording.prepareToRecordAsync(recordingOptions);
+      await recording.startAsync();
+    } catch (error) {
+      console.log(error);
+      this.stopRecording();
     }
-
-    async function init() {
-        const recognizer = await createModel();
-        const classLabels = recognizer.wordLabels(); // get class labels
-        const labelContainer = document.getElementById("label-container");
-        for (let i = 0; i < classLabels.length; i++) {
-            labelContainer.appendChild(document.createElement("div"));
-        }
-
-        // listen() takes two arguments:
-        // 1. A callback function that is invoked anytime a word is recognized.
-        // 2. A configuration object with adjustable fields
-        recognizer.listen(result => {
-            const scores = result.scores; // probability of prediction for each class
-            // render the probability scores per class
-            for (let i = 0; i < classLabels.length; i++) {
-                const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
-                labelContainer.childNodes[i].innerHTML = classPrediction;
-            }
-        }, {
-            includeSpectrogram: true, // in case listen should return result.spectrogram
-            probabilityThreshold: 0.75,
-            invokeCallbackOnNoiseAndUnknown: true,
-            overlapFactor: 0.50 // probably want between 0.5 and 0.75. More info in README
-        });
-
-        // Stop the recognition in 5 seconds.
-        // setTimeout(() => recognizer.stopListening(), 5000);
+    this.recording = recording;
+  }
+  const recordingOptions = {
+    // android not currently in use, but parameters are required
+    android: {
+      extension: '.m4a',
+      outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
+      audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
+      sampleRate: 44100,
+      numberOfChannels: 2,
+      bitRate: 128000,
+    },
+    ios: {
+      extension: '.wav',
+      audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_HIGH,
+      sampleRate: 44100,
+      numberOfChannels: 1,
+      bitRate: 128000,
+      linearPCMBitDepth: 16,
+      linearPCMIsBigEndian: false,
+      linearPCMIsFloat: false,
+    },
+  };
+  getTranscription = async () => {
+    this.setState({ isFetching: true });
+    try {
+      const info = await FileSystem.getInfoAsync(this.recording.getURI());
+      console.log(`FILE INFO: ${JSON.stringify(info)}`);
+      const uri = info.uri;
+      const formData = new FormData();
+      formData.append('file', {
+        uri,
+        type: 'audio/x-wav',
+        // could be anything 
+        name: 'speech2text'
+      });
+      const response = await fetch(config.CLOUD_FUNCTION_URL, {
+        method: 'POST',
+        body: formData
+      });
+      const data = await response.json();
+      this.setState({ query: data.transcript });
+    } catch (error) {
+      console.log('There was an error', error);
+      this.stopRecording();
+      this.resetRecording();
     }
+    this.setState({ isFetching: false });
+  }
+  const ENCODING = 'LINEAR16';
+  const SAMPLE_RATE_HERTZ = 41000;
+  const LANGUAGE = 'en-US';
+
   return (
-    <View marginTop="20%"
-    alignItems="center">
-      <Button
-        marginTop="100px"
-        title={'Start Recording'}
-        onClick={init()}
-      />
+    <View style={styles.container}>
+      {!started ? <Button title='Start Speech to Text' onPress={startSpeechToText} /> : undefined}
+      {started ? <Button title='Stop Speech to Text' onPress={stopSpeechToText} /> : undefined}
+      {results.map((result, index) => <Text key={index}>{result}</Text>)}
+      <StatusBar style="auto" />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
