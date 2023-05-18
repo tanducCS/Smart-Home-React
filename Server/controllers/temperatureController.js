@@ -20,7 +20,7 @@ myOAuth2Client.setCredentials({
 // Hàm gửi nhiệt độ khi vượt quá ngưỡng
 const sendEmailNotification = (temperature,myAccessToken) => {
   const threshold = 35;
-  const emailRecipient = 'hotanduc.cs@gmail.com';
+  const emailRecipient = 'kieukhanhquan@gamil.com';
   if(temperature > threshold){
     const transporter = nodemailer.createTransport({
       service: 'gmail',
