@@ -36,7 +36,7 @@ const FanListLivingroom = ({ navigation }) => {
         }
         else {
             setChecked(true);
-            const data = { active: "1" };
+            const data = { active: "50" };
             axios.post('https://smart-home-react.onrender.com:443/api/turnFanOff', data)
                 .then((response) => {
                     console.log(response);

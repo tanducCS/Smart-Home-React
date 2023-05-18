@@ -36,7 +36,7 @@ router.get("/getHumi", (req, res) => {
   });
 });
 router.post('/setFanSpeed', (req, res) => {
-  const data = req.body.active;
+  const data = req.body.speed;
   mqtt.publish("nguyenha25012002/feeds/fan-speed", data);
   res.send('Data received');
 });
