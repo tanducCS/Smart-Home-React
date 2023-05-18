@@ -46,8 +46,15 @@ const BarChart = () => {
       });
       
       const newData = {
-        labels: ['Sun', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Mon'],
+        labels: ['Sun', 'Mon','Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
         datasets: [
+          {
+            label: 'Temperature',
+            data: weeklyTemperatures,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            borderWidth: 1,
+          },
           {
             label: 'Temperature',
             data: weeklyTemperatures,

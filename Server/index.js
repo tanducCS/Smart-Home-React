@@ -35,11 +35,10 @@ mqtt.subscribe( async function(topic, message) {
     if(topic=="nguyenha25012002/feeds/temperature"){
       var temperature= message.toString();
       // Goi API toi server de luu lai nhiet do trong DB
-      await axios.post('http://localhost:3000/temperature', {
+      await axios.post('https://smarthome-biiq.onrender.com/temperature', {
           value: temperature,
       })
       
-
 
       io.emit('temperatureUpdate', temperature);
     }
