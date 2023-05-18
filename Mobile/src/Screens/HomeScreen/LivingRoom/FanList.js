@@ -1,10 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Switch } from 'react-native';
-import { Header } from 'react-native/Libraries/NewAppScreen';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Slider, Button } from '@rneui/themed';
+import axios from 'axios';
+import { ScreenWidth } from '@rneui/base';
 
 const FanListLivingroom = ({ navigation }) => {
     const onHome = () => (
@@ -18,8 +19,49 @@ const FanListLivingroom = ({ navigation }) => {
     const onFanListLivingroom = () => (
         navigation.navigate("FanListLivingroom")
     );
-    const [isEnabled0, setIsEnabled0] = useState(false);
-    const [isEnabled1, setIsEnabled1] = useState(false);
+
+    const [checked, setChecked] = useState(false);
+    const handleChange = (event) => {
+        // setChecked(event.target.checked);
+        if (checked) {
+            setChecked(false);
+            const data = { active: "0" };
+            axios.post('https://smart-home-react.onrender.com:443/api/turnFanOn', data)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+        else {
+            setChecked(true);
+            const data = { active: "50" };
+            axios.post('https://smart-home-react.onrender.com:443/api/turnFanOff', data)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    };
+
+    const [value, setValue] = useState(0);
+    const handleValueChange = (event) => {
+        setValue(value);
+        const data = { speed: value };
+        console.log(data);
+        axios.post('https://smart-home-react.onrender.com:443/api/setFanSpeed', data)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+
     return (
         <View flexDirection="column">
             <View style={styles.room}>
@@ -41,14 +83,16 @@ const FanListLivingroom = ({ navigation }) => {
                     <Text style={styles.listText}>Fan 1</Text>
                     <Switch
                         trackColor={{ false: '#767577', true: '#81b0ff' }}
-                        thumbColor={isEnabled0 ? '#f5dd4b' : '#f4f3f4'}
-                        onValueChange={() => setIsEnabled0(previousState => !previousState)}
-                        value={isEnabled0}
+                        thumbColor={checked ? '#f5dd4b' : '#f4f3f4'}
+                        onChange={handleChange}
+                        value={checked}
                         paddingLeft="60%"
                     />
                 </View>
                 <Slider
-                    value={0}
+                    disabled={!checked}
+                    value={value}
+                    onValueChange={setValue}
                     minimumValue={0}
                     maximumValue={100}
                     step={1}
@@ -59,8 +103,9 @@ const FanListLivingroom = ({ navigation }) => {
                     trackStyle={{ height: 10, borderRadius: 10 }}
                     style={{ width: "90%", height: 50 }}
                 />
+                <Text style={styles.listText}>Speed: {value}</Text>
                 <Button
-                    title="Setting"
+                    title="Set speed"
                     buttonStyle={{
                         backgroundColor: '#00D1FF',
                         borderRadius: 3,
@@ -70,40 +115,7 @@ const FanListLivingroom = ({ navigation }) => {
                         marginHorizontal: 90,
                         marginVertical: 10,
                     }}
-                />
-                <View flexDirection="row">
-                    <Text style={styles.listText}>Fan 2</Text>
-                    <Switch
-                        trackColor={{ false: '#767577', true: '#81b0ff' }}
-                        thumbColor={isEnabled1 ? '#f5dd4b' : '#f4f3f4'}
-                        onValueChange={() => setIsEnabled1(previousState => !previousState)}
-                        value={isEnabled1}
-                        paddingLeft="60%"
-                    />
-                </View>
-                <Slider
-                    value={0}
-                    minimumValue={0}
-                    maximumValue={100}
-                    step={1}
-                    minimumTrackTintColor="#00d1ff"
-                    maximumTrackTintColor="#bcbcbc"
-                    thumbTintColor="#00d1ff"
-                    thumbStyle={{ width: 20, height: 20, borderRadius: 20 }}
-                    trackStyle={{ height: 10, borderRadius: 10 }}
-                    style={{ width: "90%", height: 50 }}
-                />
-                <Button
-                    title="Setting"
-                    buttonStyle={{
-                        backgroundColor: '#00D1FF',
-                        borderRadius: 3,
-                    }}
-                    containerStyle={{
-                        width: 200,
-                        marginHorizontal: 90,
-                        marginVertical: 10,
-                    }}
+                    onPress={handleValueChange}
                 />
             </View>
         </View>
