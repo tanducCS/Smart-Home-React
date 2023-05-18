@@ -49,8 +49,9 @@ const FanListLivingroom = ({ navigation }) => {
 
     const [value, setValue] = useState(0);
     const handleValueChange = (event) => {
-        setValue(event.target.value);
-        const data = { speed: event.target.value };
+        setValue(value);
+        const data = { speed: value };
+        console.log(data);
         axios.post('https://smart-home-react.onrender.com:443/api/setFanSpeed', data)
             .then((response) => {
                 console.log(response);
