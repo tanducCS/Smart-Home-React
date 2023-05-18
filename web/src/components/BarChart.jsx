@@ -21,7 +21,7 @@ const BarChart = () => {
       });
   const fetchTemperatures = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/temperature/perday');
+      const response = await axios.get('https://smart-home-react.onrender.com/temperature/perday');
       const temperatures = response.data;
       setTemperatures(temperatures);
       // Xử lý dữ liệu nhiệt độ tại đây

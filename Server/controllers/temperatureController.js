@@ -138,8 +138,8 @@ const deleteTemperature = async (req, res) => {
 const getAvarageTemperaturePerDayLastWeek = async (req, res) => {
   try {
     const today = new Date(); // Ngày hiện tại
-    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1); // Ngày bắt đầu của tuần (thứ 2)
-    const endOfWeek = new Date(today.getFullYear(), today.getMonth(), startOfWeek.getDate() + 7); // Ngày kết thúc của tuần (Chủ Nhật)
+    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1); // Ngày bắt đầu của tuần (Chủ nhật)
+    const endOfWeek = new Date(today.getFullYear(), today.getMonth(), startOfWeek.getDate() + 7); // Ngày kết thúc của tuần (Thứ 7 )
 
 
     const temperatures = await Temperature.aggregate([
