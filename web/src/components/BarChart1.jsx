@@ -5,25 +5,25 @@ import Chart from 'chart.js/auto'
 import axios from 'axios'
 
 
-const BarChart = () => {
-  const [temperatures, setTemperatures] = useState([]);
+const BarChart1 = () => {
+  const [humidities, setHumidities] = useState([]);
   const [data,setData] = useState({
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         datasets: [
           {
-            label: 'Temperature',
+            label: 'Humidity',
             data: [1,2,3,4,5,6,7],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 0.2)',
             borderWidth: 1,
           },
         ],
       });
-  const fetchTemperatures = async () => {
+  const fetchHumidities = async () => {
     try {
-      const response = await axios.get('https://smarthome-biiq.onrender.com/temperature/perday');
-      const temperatures = response.data;
-      setTemperatures(temperatures);
+      const response = await axios.get('http://localhost:3000/humidity/perday');
+      const humidities = response.data;
+      setHumidities(humidities);
       // Xử lý dữ liệu nhiệt độ tại đây
     } catch (error) {
       console.error(error);
@@ -31,28 +31,28 @@ const BarChart = () => {
     }
     };
   useEffect(() => {
-    fetchTemperatures();
+    fetchHumidities();
   }, []);
   
   useEffect(() => {
-    if (temperatures.length > 0) {
+    if (humidities.length > 0) {
       // Xử lý dữ liệu nhiệt độ
-      const weeklyTemperatures = new Array(7).fill(0);
+      const weeklyHumidities = new Array(7).fill(0);
 
-      temperatures.forEach((temperature) => {
-        const date = new Date(temperature._id);
+      humidities.forEach((humidity) => {
+        const date = new Date(humidity._id);
         const dayOfWeek = date.getDay(); // Lấy ngày trong tuần (0: Chủ nhật, 1-6: Thứ 2-Thứ 7)
-        weeklyTemperatures[dayOfWeek] = temperature.averageTemperature;
+        weeklyHumidities[dayOfWeek] = humidity.averageHumidity;
       });
       
       const newData = {
         labels: ['Sun', 'Mon','Tue', 'Wed', 'Thu', 'Fri', 'Sat' ],
         datasets: [
           {
-            label: 'Temperature',
-            data: weeklyTemperatures,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
+            label: 'Humidity',
+            data: weeklyHumidities,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 0.2)',
             borderWidth: 1,
           },
         ],
@@ -60,7 +60,7 @@ const BarChart = () => {
       console.log(newData)
       setData(newData);
     }
-  }, [temperatures]);
+  }, [humidities]);
   
   useEffect(() => {
 
@@ -74,4 +74,4 @@ const BarChart = () => {
     
   )
 }
-export default BarChart;
+export default BarChart1;

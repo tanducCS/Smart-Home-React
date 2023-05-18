@@ -17,6 +17,39 @@ const createHumidity = async (req, res) => {
     }
 };
 
+//Lấy tất cả nhiệt độ của mỗi ngày của tuần trước
+const getAvarageHumidityPerDayLastWeek = async (req, res) => {
+    try {
+      const today = new Date(); // Ngày hiện tại
+      const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1); // Ngày bắt đầu của tuần (Chủ nhật)
+      const endOfWeek = new Date(today.getFullYear(), today.getMonth(), startOfWeek.getDate() + 7); // Ngày kết thúc của tuần (Thứ 7 )
+  
+  
+      const humidities = await Humidity.aggregate([
+        {
+          $match: {
+            date: { $gte: startOfWeek, $lte: endOfWeek },
+          },
+        },
+        {
+          $group: {
+            _id: { $dateToString: { format: '%Y-%m-%d', date: '$date' } },
+            averageHumidity: { $avg: '$value' },
+          },
+        },
+        {
+          $sort: { _id: 1 },
+        },
+      ]);
+  
+      return humidities;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error retrieving average humidity data');
+    }
+}
+
 module.exports = {
+    getAvarageHumidityPerDayLastWeek,
     createHumidity,
 };
