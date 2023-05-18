@@ -9,7 +9,15 @@ const router = express.Router();
 
 
 
-
+router.get('/perday', async (req, res) => {
+  try {
+    const temperatures = await temperatureController.getAvarageTemperaturePerDayLastWeek();
+    res.json(temperatures);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error retrieving average temperature data' });
+  }
+});
 
 // Lấy tất cả các nhiệt độ
 router.get('/', async (req, res) => {
@@ -21,6 +29,8 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+
 
 // Lấy nhiệt độ theo ID
 router.get('/:id', async (req, res) => {
@@ -71,5 +81,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+// Lấy tất cả nhiệt độ trung bình theo ngày 
+
 
 module.exports = router;

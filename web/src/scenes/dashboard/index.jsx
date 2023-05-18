@@ -89,7 +89,7 @@ const Dashboard = () => {
       <Box
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
+        gridAutoRows="200px"
         gap="20px"
       >
         {/* ROW 1 */}
@@ -221,6 +221,7 @@ const Dashboard = () => {
           <Box
             mt="25px"
             p="0 30px"
+            
             display="flex "
             justifyContent="space-between"
             alignItems="center"
@@ -247,8 +248,11 @@ const Dashboard = () => {
               </IconButton>
             </Box>
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+          <Box  height="250px" 
+                m="-20px 0 0 0"
+                
+          >
+            <BarChart/>
           </Box>
         </Box>
         {/* ROW 3 */}

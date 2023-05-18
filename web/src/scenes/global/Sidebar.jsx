@@ -137,7 +137,7 @@ const Sidebar = () => {
 
             <Item
               title="Static"
-              to="/line"
+              to="/bar"
               icon={<EqualizerIcon/>}
               selected={selected}
               setSelected={setSelected}

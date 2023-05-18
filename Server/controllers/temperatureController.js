@@ -134,7 +134,41 @@ const deleteTemperature = async (req, res) => {
   }
 };
 
+//Lấy tất cả nhiệt độ của mỗi ngày của tuần trước
+const getAvarageTemperaturePerDayLastWeek = async (req, res) => {
+  try {
+    const today = new Date(); // Ngày hiện tại
+    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 1); // Ngày bắt đầu của tuần (thứ 2)
+    const endOfWeek = new Date(today.getFullYear(), today.getMonth(), startOfWeek.getDate() + 7); // Ngày kết thúc của tuần (Chủ Nhật)
+
+
+    const temperatures = await Temperature.aggregate([
+      {
+        $match: {
+          date: { $gte: startOfWeek, $lte: endOfWeek },
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: '%Y-%m-%d', date: '$date' } },
+          averageTemperature: { $avg: '$value' },
+        },
+      },
+      {
+        $sort: { _id: 1 },
+      },
+    ]);
+
+    return temperatures;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Error retrieving average temperature data');
+  }
+}
+
+
 module.exports = {
+  getAvarageTemperaturePerDayLastWeek,
   getAllTemperatures,
   getTemperatureById,
   createTemperature,
